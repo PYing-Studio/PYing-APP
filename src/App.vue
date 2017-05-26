@@ -1,0 +1,39 @@
+<template>
+  <div id="app">
+    <router-view></router-view>
+
+    <mu-paper id="navigation">
+      <mu-bottom-nav :value="bottomNav" @change="handleChange">
+        <mu-bottom-nav-item value="/" title="首页" icon="restore"/>
+        <mu-bottom-nav-item value="/date" title="约影" icon="favorite"/>
+        <mu-bottom-nav-item value="/about" title="我" icon="location_on"/>
+      </mu-bottom-nav>
+    </mu-paper>
+  </div>
+</template>
+
+<script>
+  export default {
+    name: 'app',
+    data () {
+      return {
+        bottomNav: '/'
+      }
+    },
+    methods: {
+      handleChange (val) {
+        this.bottomNav = val
+        this.$router.push(val)
+      }
+    }
+  }
+</script>
+
+<style>
+  #navigation {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+
+</style>
