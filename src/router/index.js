@@ -5,11 +5,18 @@ import Date from '@/components/Date'
 import About from '@/components/About'
 import Login from '@/components/Login'
 import Signup from '@/components/Signup'
+import Order from '@/components/about-order'
+import Star from '@/components/about-star'
+import Setting from '@/components/about-setting'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
+    {
+      path:'*',
+      redirect: '/'
+    },
     {
       path: '/',
       name: 'Main',
@@ -23,7 +30,7 @@ export default new Router({
     {
       path: '/about',
       name: 'about',
-      component: About
+      component: About,
     },
     {
       path: '/login',
@@ -34,6 +41,21 @@ export default new Router({
       path: '/signup',
       name: 'signup',
       component: Signup
+    },
+    {
+      path: '/about/order',
+      name: 'order',
+      component: Order
+    },
+    {
+      path: '/about/star',
+      name: 'star',
+      component: Star
+    },
+    {
+      path: '/about/setting',
+      name: 'setting',
+      component: Setting
     }
   ]
 })
