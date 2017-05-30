@@ -1,12 +1,12 @@
 <template>
-  <div class="starListContainer">
-    <mu-grid-list class="starList" cols="1">
-      <mu-sub-header class="starTitle">我的收藏</mu-sub-header>
+  <div class="orderListContainer">
+    <mu-grid-list class="orderList" cols="1">
+      <mu-sub-header class="orderTitle">我的订单</mu-sub-header>
       <mu-grid-tile v-for="item, index in list" :key="index">
-        <img src="../assets/logo.png"/>
+        <img src="/static/images/logo.png"/>
         <span slot="title">{{item.title}}</span>
         <span slot="subTitle"> <b>{{item.playTime}}</b></span>
-        <mu-icon-button icon="delete" slot="action"/>
+        <mu-icon-button icon="star_border" slot="action"/>
       </mu-grid-tile>
     </mu-grid-list>
   </div>
@@ -17,14 +17,14 @@
     data () {
       return {
         list: [{
-          image: '../assets/logo.png',
-          title: '大话西游',
-          playTime: '观看时间:2016-09-01, 和王尼玛一块'
+          image: '/static/images/logo.png',
+          title: '速度与激情',
+          playTime: '上映时间: 2017-09-01'
         },
           {
-            image: '../assets/logo.png',
-            title: '爱情转移',
-            playTime: '观看时间: 2016-09-01'
+            image: '/static/images/logo.png',
+            title: '魔兽2',
+            playTime: '上映时间: 2017-09-01'
           }
         ]
       }
@@ -34,18 +34,18 @@
 
 
 <style scoped>
-  .starListContainer {
+  .orderListContainer {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
   }
 
-  .starList {
+  .orderList {
     overflow-y: auto;
   }
 
-  .starTitle {
+  .orderTitle {
     text-align: center;
     font-size: 1.5em;
     font-weight: bold;

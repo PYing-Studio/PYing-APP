@@ -1,13 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Main from '@/components/Main'
-import Date from '@/components/Date'
-import About from '@/components/About'
-import Login from '@/components/Login'
-import Signup from '@/components/Signup'
-import Order from '@/components/about-order'
-import Star from '@/components/about-star'
-import Setting from '@/components/about-setting'
+import Main from '@/views/Movie/Main'
+import Detail from '@/views/Movie/Detail'
+import Date from '@/views/Date'
+import Login from '@/views/Login'
+import Signup from '@/views/Signup'
+import About from '@/views/About/About'
+import Order from '@/views/About/Order'
+import Star from '@/views/About/Star'
+import Setting from '@/views/About/Setting'
 
 Vue.use(Router)
 
@@ -21,6 +22,11 @@ export default new Router({
       path: '/',
       name: 'Main',
       component: Main
+    },
+    {
+      path: '/movie/:id',
+      name: 'Detail',
+      component: Detail
     },
     {
       path: '/date',

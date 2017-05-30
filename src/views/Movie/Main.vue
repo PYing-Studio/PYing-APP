@@ -1,12 +1,12 @@
 <template>
-  <div class="main">
+  <div>
     <el-carousel height="200px" arrow="always">
       <el-carousel-item v-for="item in carouselItems" :key="item">
         <img :src="item" class="carousel-item">
       </el-carousel-item>
     </el-carousel>
 
-    <mu-card v-for="item in movieList" class="movie-card" @click="onClickCard">
+    <mu-card v-for="item in movieList" class="movie-card">
       <mu-card-media :title="item.title" :subTitle="'评分:' + item.score">
         <img :src="item.image" />
       </mu-card-media>
@@ -14,7 +14,7 @@
         {{ item.desc }}
       </mu-card-text>
       <mu-card-actions>
-        <mu-raised-button label="进一步了解" primary/>
+        <mu-raised-button label="进一步了解" primary @click="onClickCard"/>
       </mu-card-actions>
     </mu-card>
   </div>
@@ -56,7 +56,7 @@
     },
     methods: {
       onClickCard() {
-        alert('kk')
+        this.$router.push({name: 'Detail', params: { id: 'kk' }})
       }
     }
   }

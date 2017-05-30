@@ -1,9 +1,10 @@
 <template>
   <div id="app">
     <mu-appbar title="热映电影" class="app-bar">
+      <mu-icon-button icon="arrow_back" slot="left" @click="onBack"/>
     </mu-appbar>
 
-    <router-view></router-view>
+    <router-view class="main"></router-view>
 
     <mu-paper id="navigation">
       <mu-bottom-nav :value="bottomNav" @change="handleChange">
@@ -27,6 +28,9 @@
       handleChange (val) {
         this.bottomNav = val
         this.$router.push(val)
+      },
+      onBack () {
+        this.$router.go(-1)
       }
     }
   }
