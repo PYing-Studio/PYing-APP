@@ -1,5 +1,8 @@
 <template>
   <div id="app">
+    <mu-appbar title="热映电影" class="app-bar">
+    </mu-appbar>
+
     <router-view></router-view>
 
     <mu-paper id="navigation">
@@ -36,4 +39,12 @@
     width: 100%;
   }
 
+  .main {
+    padding-top: 56px;
+    padding-bottom: 80px;
+  }
+
+  .app-bar {
+    position: fixed;
+  }
 </style>
