@@ -7,7 +7,6 @@ import MuseUI from 'muse-ui'
 import VueResource from 'vue-resource'
 import Element from 'element-ui'
 
-
 import 'muse-ui/dist/muse-ui.css'
 import 'muse-ui/dist/theme-teal.css'
 
