@@ -1,9 +1,13 @@
 <template>
-  <div id="main">
+  <div>
+    <mu-appbar title="电影详情" class="app-bar">
+      <mu-icon-button icon="arrow_back" slot="left" @click="onBack" />
+    </mu-appbar>
 
-    <video-player  ref="videoPlayer"
-                   :options="playerOptions">
-    </video-player>
+    <div class="main">
+      <video-player  ref="videoPlayer"
+                     :options="playerOptions">
+      </video-player>
 
       <mu-card id="movie-card">
         <mu-card-title :title="title" :subTitle="'评分:' + sc"/>
@@ -15,6 +19,7 @@
       </mu-card>
 
       <mu-raised-button class="full-btn" label="购票" @click="buy" primary/>
+    </div>
 
   </div>
 </template>
@@ -51,6 +56,10 @@
       }
     },
     methods: {
+      onBack() {
+        this.$router.go(-1)
+      },
+
       buy() {
         this.$router.push({name: 'Pay', params: { id: this.id }})
       }
@@ -59,7 +68,7 @@
 </script>
 
 <style scoped>
-  #main {
+  .main {
     text-align: center;
   }
 
