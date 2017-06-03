@@ -11,7 +11,9 @@
     <br/>
     <mu-text-field label="手机号" type="number" labelFloat fullWidth v-model="phone"/>
     <br/>
-    <mu-raised-button label="注册" class="register" @click="userRegistered"/>
+    <div class="regBtn">
+      <mu-raised-button label="注册" primary @click="userRegistered"></mu-raised-button>
+    </div>
   </div>
 </template>
 
@@ -59,6 +61,10 @@
     background-color: lightgreen;
     color: white;
     text-align: center;
+  }
+
+  .regBtn {
+    margin-top: 100px;
   }
 
 </style>

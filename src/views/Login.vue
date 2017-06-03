@@ -5,9 +5,12 @@
     <br/>
     <mu-text-field label="密码" type="password" labelFloat fullWidth v-model="l_password"/>
     <br/>
-    <mu-raised-button label="登录" class="login-btn" @click="login"/>
-    <div>
-      <button v-on:click="useRegister">没有账号？马上注册</button>
+    <div class="loginBtn">
+      <mu-raised-button label="登录"  primary  @click="login"/>
+    </div>
+    <div class="userReg">
+      <mu-flat-button label="没有账号?" icon="add_circle_outline" labelPosition="before"
+                       color="#00aa8d" @click="useRegister"/>
     </div>
   </div>
 </template>
@@ -50,10 +53,12 @@
     padding-top: 100px;
   }
 
-  .login-btn {
-    background-color: gray;
-    color: white;
-    text-align: match-parent;
+  .userReg {
+    text-align: right;
+  }
+
+  .loginBtn {
+    margin-top: 100px;
   }
 
 </style>
