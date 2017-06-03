@@ -10,12 +10,15 @@
         <mu-menu-item v-for="item,index in cinemaList" :key="index" :value="item.id"
                       :title="item.value"/>
       </mu-select-field>
+
       <mu-date-picker v-model="date" hintText="请选择观影日期" fullWidth
                       :shouldDisableDate="disableYesterday"/>
-      <mu-select-field v-model="showTimeID" fullWidth
+
+      <mu-select-field v-model="showTime" fullWidth
                        :labelFocusClass="['label-foucs']" label="请选择观影时间">
-        <mu-menu-item v-for="item,index in timeList" :key="index" :value="item.id" :title="item.value" />
+        <mu-menu-item v-for="item,index in timeList" :key="index" :value="item" :title="item" />
       </mu-select-field>
+
       <mu-text-field v-model="seatNum" label="请填写票数" labelFloat fullWidth type="number"/>
       <div class="buyTickets">
         <mu-raised-button label="提交订单" @click="submit" primary/>
@@ -38,14 +41,12 @@
           {id: '002', value: '影之刃'},
           {id: '003', value: '天下HD'}
         ],
-        timeList: [{id: '001', value: '8:00~9:00'},
-          {id: '002', value: '9:00~10:00'},
-          {id: '003', value: '10:00~11:00'}],
+        timeList: ['8:00', '9:00', '10:00'],
 
-        showTimeID: '001',
+        showTime: '',
         cinemaId: '001',
         movieId: '',
-        seatNum: '',
+        seatNum: 1,
         seat: '',
         date: ''
 
@@ -99,7 +100,7 @@
   .main {
     text-align: center;
     padding-top: 100px;
-    margin: 2em 1em 0 1em;
+    margin: 0 1em 0 1em;
   }
 
   .buyTickets {

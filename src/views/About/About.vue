@@ -40,22 +40,8 @@
       return {}
     },
     methods: {
-      onAdd() {
-        this.$router.push('/signup')
-      },
       login () {
         this.$router.push('/login')
-        const form = {
-          username: 'kk',
-          password: 'kk',
-          phone: '13400000000',
-          nickname: 'kkk',
-          email: 'kk'
-        }
-        User.register(this, form)
-          .catch(err => {
-            HTTPErrHandler(this, err)
-          })
       }
     }
   }
