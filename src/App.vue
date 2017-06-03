@@ -13,19 +13,6 @@
 </template>
 
 <script>
-<<<<<<< HEAD
-export default {
-  name: 'app',
-  data() {
-    return {
-      bottomNav: '/login'
-    }
-  },
-  methods: {
-    handleChange(val) {
-      this.bottomNav = val
-      this.$router.push(val)
-=======
   import bus from './service/bus'
 
   export default {
@@ -43,7 +30,6 @@ export default {
     },
     beforeDestroy() {
       bus.$off('add-todo', this.onChangeTitle);
->>>>>>> acc452ae1e602270889104a3280364f371d00a59
     },
     methods: {
       handleChange(val) {

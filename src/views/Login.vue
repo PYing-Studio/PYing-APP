@@ -23,10 +23,9 @@
       handleInputOverflow (isOverflow) {
         this.inputErrorText = isOverflow ? '格式错误！！！！' : ''
       },
-<<<<<<< HEAD
       useRegister() {
           this.$router.push('/signup')
-=======
+      },
       login () {
         const form = {
           username: 'kk',
@@ -39,7 +38,6 @@
           .catch(err => {
             HTTPErrHandler(this, err)
           })
->>>>>>> acc452ae1e602270889104a3280364f371d00a59
       }
     }
   }
