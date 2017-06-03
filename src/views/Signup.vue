@@ -1,15 +1,15 @@
 <template>
   <div class="userInfo">
     <h3>注册</h3>
-    <mu-text-field label="用户名" labelFloat fullWidth v-model="userName"/>
+    <mu-text-field label="用户名" labelFloat fullWidth v-model="username"/>
     <br/>
     <mu-text-field label="密码" type="password" labelFloat fullWidth v-model="password"/>
     <br/>
-    <mu-text-field label="确认密码" type="password" labelFloat fullWidth v-model=""/>
+    <mu-text-field label="确认密码" type="password" labelFloat fullWidth v-model="confirmPassword"/>
     <br/>
-    <mu-text-field label="邮箱" labelFloat fullWidth v-model="email"/>
+    <mu-text-field label="邮箱" type="email" labelFloat fullWidth v-model="email"/>
     <br/>
-    <mu-text-field label="手机号" labelFloat fullWidth v-model="phone"/>
+    <mu-text-field label="手机号" type="number" labelFloat fullWidth v-model="phone"/>
     <br/>
     <mu-raised-button label="注册" class="register" @click="userRegistered"/>
   </div>
@@ -20,11 +20,11 @@
   export default {
     data () {
       return {
-        userName: '',
+        username: '',
         password: '',
+        confirmPassword: '',
         email: '',
         phone: '',
-        nickname: '',
       }
     },
     methods: {
@@ -33,11 +33,14 @@
           username: this.username,
           password: this.password,
           email: this.email,
-          phone: this.phone,
+          phone: this.email,
           nickname: ''
         }
-
         User.register(this, form)
+          .then(this.$router.push('/login'))
+          .catch(err => {
+            HTTPErrHandler(this, err)
+          })
       }
     }
   }
@@ -47,7 +50,8 @@
 <style scoped>
 
   .userInfo {
-    margin: 1em;
+    margin: 0 1em;
+    padding-top: 100px;
     text-align: center;
   }
 

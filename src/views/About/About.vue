@@ -22,11 +22,13 @@
           <mu-icon slot="right" value="chevron_right"/>
         </mu-list-item>
         <mu-divider></mu-divider>
-        <mu-list-item title="设置" to="/about/setting">
+        <mu-list-item class="setting" title="设置" to="/about/setting">
           <mu-icon slot="right" value="chevron_right"/>
         </mu-list-item>
       </mu-list>
-      <mu-raised-button label="登录" @click="login" secondary></mu-raised-button>
+      <div class="about_login">
+        <mu-raised-button label="登录" @click="login" secondary></mu-raised-button>
+      </div>
     </div>
 
   </div>
@@ -64,6 +66,11 @@
   .about {
   }
 
+  .about_login {
+    text-align: center;
+    padding-top: 100px;
+  }
+
   .avatar {
     text-align: center;
     height: 200px;
@@ -82,6 +89,7 @@
     text-align: center;
   }
 
-  .userHome {
+  .setting {
+    margin-top: 2em;
   }
 </style>

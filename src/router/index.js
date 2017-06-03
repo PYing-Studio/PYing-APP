@@ -4,7 +4,7 @@ import Main from '@/views/Movie/Main'
 import Detail from '@/views/Movie/Detail'
 import Pay from '@/views/Movie/Pay'
 import Date from '@/views/Date'
-//import Login from '@/views/Login'
+import Login from '@/views/Login'
 import Signup from '@/views/Signup'
 import About from '@/views/About/About'
 import Order from '@/views/About/Order'
@@ -45,11 +45,11 @@ export default new Router({
       name: 'about',
       component: About,
     },
-   /* {
+    {
       path: '/login',
       name: 'login',
       component: Login
-    },*/
+    },
     {
       path: '/signup',
       name: 'signup',

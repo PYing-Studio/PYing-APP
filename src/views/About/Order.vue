@@ -3,15 +3,16 @@
     <mu-appbar title="我的订单" class="app-bar">
       <mu-icon-button icon="arrow_back" slot="left" @click="onBack" />
     </mu-appbar>
-    <mu-grid-list class="orderList" cols="1">
-      <mu-sub-header class="orderTitle">我的订单</mu-sub-header>
-      <mu-grid-tile v-for="item, index in list" :key="index">
-        <img src="/static/images/logo.png"/>
-        <span slot="title">{{item.title}}</span>
-        <span slot="subTitle"> <b>{{item.playTime}}</b></span>
-        <mu-icon-button icon="star_border" slot="action"/>
-      </mu-grid-tile>
-    </mu-grid-list>
+     <div class="orderList">
+       <mu-grid-list  cols="1">
+         <mu-grid-tile v-for="item, index in list" :key="index">
+           <img src="/static/images/logo.png"/>
+           <span slot="title">{{item.title}}</span>
+           <span slot="subTitle"> <b>{{item.playTime}}</b></span>
+           <mu-icon-button icon="star_border" slot="action"/>
+         </mu-grid-tile>
+       </mu-grid-list>
+     </div>
   </div>
 </template>
 
@@ -51,6 +52,8 @@
 
   .orderList {
     overflow-y: auto;
+    margin-top: 1em;
+    padding: 3em 1em 0 1em;
   }
 
   .orderTitle {
@@ -59,4 +62,8 @@
     font-weight: bold;
     margin: auto 16px;
   }
+
+  .app-bar {
+  }
+
 </style>
