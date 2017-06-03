@@ -80,4 +80,8 @@
   .mu-snackbar {
     margin-bottom: 56px;
   }
+
+  .mu-dropDown-menu {
+    text-align: left !important;
+  }
 </style>

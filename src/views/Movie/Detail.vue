@@ -61,7 +61,7 @@
       },
 
       buy() {
-        this.$router.push({name: 'Pay', params: { id: this.id }})
+        this.$router.push({name: 'NewOrder', params: { id: this.id }})
       }
     }
   }
