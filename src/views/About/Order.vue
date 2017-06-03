@@ -1,5 +1,8 @@
 <template>
   <div class="orderListContainer">
+    <mu-appbar title="我的订单" class="app-bar">
+      <mu-icon-button icon="arrow_back" slot="left" @click="onBack" />
+    </mu-appbar>
     <mu-grid-list class="orderList" cols="1">
       <mu-sub-header class="orderTitle">我的订单</mu-sub-header>
       <mu-grid-tile v-for="item, index in list" :key="index">
@@ -27,6 +30,11 @@
             playTime: '上映时间: 2017-09-01'
           }
         ]
+      }
+    },
+    methods: {
+      onBack() {
+        this.$router.go(-1)
       }
     }
   }

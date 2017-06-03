@@ -1,5 +1,8 @@
 <template>
   <div class="starListContainer">
+    <mu-appbar title="我的收藏" class="app-bar">
+      <mu-icon-button icon="arrow_back" slot="left" @click="onBack" />
+    </mu-appbar>
     <mu-grid-list class="starList" cols="1">
       <mu-sub-header class="starTitle">我的收藏</mu-sub-header>
       <mu-grid-tile v-for="item, index in list" :key="index">
@@ -27,6 +30,11 @@
             playTime: '观看时间: 2016-09-01'
           }
         ]
+      }
+    },
+    methods: {
+      onBack() {
+        this.$router.go(-1)
       }
     }
   }

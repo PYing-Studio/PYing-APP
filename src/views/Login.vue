@@ -1,22 +1,24 @@
 <template>
   <div class="login">
-    <mu-text-field hintText="用户名或手机号"/><br/>
-    <mu-text-field hintText="请输入密码"/><br/>
+    <h3>登录</h3>
+    <mu-text-field label="用户名" labelFloat fullWidth type="text" v-model="username"/><br/>
+    <mu-text-field label="密码" type="password" labelFloat fullWidth v-model="password"/><br/>
     <mu-raised-button label="登录" class="login-btn" @click="login"/>
-    <div class="container">
-      <mu-flat-button label="忘记密码?" class="flat-btn"/>
-      <mu-flat-button label="新用户注册" class="flat-btn" @click="useRegister"/>
+    <div>
+      <button v-on:click="useRegister">没有账号？马上注册</button>
     </div>
   </div>
 </template>
 
 <script>
-  import { User, HTTPErrHandler } from '../service'
+  /*import { User, HTTPErrHandler } from '../service'
 
   export default {
     data () {
       return {
-        inputErrorText: ''
+        inputErrorText: '',
+        password: '',
+        username: ''
       }
     },
     methods: {
@@ -28,33 +30,25 @@
       },
       login () {
         const form = {
-          username: 'kk',
-          password: 'kk',
-          phone: '13400000000',
-          nickname: 'kkk',
-          email: 'kk'
+          username: this.username,
+          password: this.password,
         }
-        User.register(this, form)
+        User.login(this, form)
+          .then(this.$router.push('/'))
           .catch(err => {
+
             HTTPErrHandler(this, err)
           })
       }
     }
-  }
+  }*/
 </script>
 
 
 <style scoped>
   .login {
     text-align: center;
-  }
-
-  .container{
-    display: flex;
-    justify-content: space-between;
-  }
-  .flat-btn {
-    margin: 12px;
+    margin: 1em;
   }
 
   .login-btn {
