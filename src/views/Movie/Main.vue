@@ -31,6 +31,7 @@
 </template>
 
 <script>
+  import { Movie, HTTPErrHandler } from '../../service'
 
   export default {
 
@@ -67,10 +68,22 @@
         ]
       }
     },
+    created () {
+      this.fetch()
+    },
     methods: {
       onClickMovie (id) {
         this.$router.push({name: 'Detail', params: { id }})
       },
+      fetch () {
+        Movie.fetch(this, 0, 10)
+          .then(res => {
+            console.log(res)
+          })
+          .catch(err => {
+            HTTPErrHandler(this, err)
+          })
+      }
     }
   }
 </script>

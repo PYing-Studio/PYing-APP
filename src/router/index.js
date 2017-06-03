@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Main from '@/views/Movie/Main'
 import Detail from '@/views/Movie/Detail'
-import Pay from '@/views/Movie/Pay'
+import NewOrder from '@/views/Movie/Order'
 import Date from '@/views/Date'
 import Login from '@/views/Login'
 import Signup from '@/views/Signup'
@@ -31,9 +31,9 @@ export default new Router({
       component: Detail
     },
     {
-      path: '/movie/:id/pay',
-      name: 'Pay',
-      component: Pay
+      path: '/movie/:id/new',
+      name: 'NewOrder',
+      component: NewOrder
     },
     {
       path: '/date',
