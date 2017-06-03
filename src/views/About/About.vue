@@ -27,7 +27,7 @@
         </mu-list-item>
       </mu-list>
       <div class="about_login">
-        <mu-raised-button label="登录" @click="login" secondary></mu-raised-button>
+        <mu-raised-button label="登录" @click="login" primary></mu-raised-button>
       </div>
     </div>
 

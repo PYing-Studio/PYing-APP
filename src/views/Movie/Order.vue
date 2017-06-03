@@ -1,24 +1,25 @@
 <template>
   <div id="main">
-    <mu-appbar title="订单详情" class="app-bar">
+    <mu-appbar title="选择订单" class="app-bar">
       <mu-icon-button icon="arrow_back" slot="left" @click="onBack" />
     </mu-appbar>
 
     <div class="main">
-      <mu-select-field v-model="cinemaId" :labelFocusClass="['label-foucs']" label="选择您附近的影院">
-        <mu-menu-item v-for="item,index in cinemaList" :key="index" :value="item.id" :title="item.value" />
+      <mu-select-field v-model="cinemaId" :labelFocusClass="['label-foucs']"
+                       label="选择您附近的影院" fullWidth>
+        <mu-menu-item v-for="item,index in cinemaList" :key="index" :value="item.id"
+                      :title="item.value"/>
       </mu-select-field>
-
-      <mu-date-picker v-model="date" hintText="请选择观影日期" :shouldDisableDate="disableYesterday"/>
-
-      <mu-select-field v-model="showTime" :labelFocusClass="['label-foucs']" label="请选择观影时间">
-        <mu-menu-item v-for="text,index in timeList" :key="index" :value="text" :title="text" />
+      <mu-date-picker v-model="date" hintText="请选择观影日期" fullWidth
+                      :shouldDisableDate="disableYesterday"/>
+      <mu-select-field v-model="showTimeID" fullWidth
+                       :labelFocusClass="['label-foucs']" label="请选择观影时间">
+        <mu-menu-item v-for="item,index in timeList" :key="index" :value="item.id" :title="item.value" />
       </mu-select-field>
-
-      <mu-text-field v-model="seatNum" label="数量" hintText="请选择票数" type="number"/>
-
-      <br/>
-      <mu-raised-button label="购票" @click="submit" primary/>
+      <mu-text-field v-model="seatNum" label="请填写票数" labelFloat fullWidth type="number"/>
+      <div class="buyTickets">
+        <mu-raised-button label="提交订单" @click="submit" primary/>
+      </div>
     </div>
 
   </div>
@@ -37,12 +38,14 @@
           {id: '002', value: '影之刃'},
           {id: '003', value: '天下HD'}
         ],
-        timeList: ['08:00', '09:00'],
+        timeList: [{id: '001', value: '8:00~9:00'},
+          {id: '002', value: '9:00~10:00'},
+          {id: '003', value: '10:00~11:00'}],
 
-        showTime: '',
-        cinemaId: '',
+        showTimeID: '001',
+        cinemaId: '001',
         movieId: '',
-        seatNum: 0,
+        seatNum: '',
         seat: '',
         date: ''
 
@@ -96,6 +99,11 @@
   .main {
     text-align: center;
     padding-top: 100px;
+    margin: 2em 1em 0 1em;
+  }
+
+  .buyTickets {
+    margin-top: 100px;
   }
 
 </style>
