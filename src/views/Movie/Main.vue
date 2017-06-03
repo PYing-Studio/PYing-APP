@@ -17,10 +17,10 @@
             <img class="cover" :src="item.img">
           </mu-col>
           <mu-col width="70" tablet="50" desktop="33">
-            <p class="movie-title">加勒比海盗5：死无对证</p>
-            <p>喜剧,动作,奇幻</p>
-            <p>主演:约翰尼德普，哈维尔 巴登，布...</p>
-            <p>评分: 8.9</p>
+            <p class="movie-title">{{ item.nm }}</p>
+            <p>{{ item.cat }}</p>
+            <p>主演: {{ item.star }}</p>
+            <p>评分: {{ item.sc }}</p>
           </mu-col>
         </mu-row>
         <mu-divider/>
@@ -38,33 +38,13 @@
     data () {
       return {
         carouselItems: [
-          "/static/images/fuck.png",
-          "/static/images/fuck.png",
-          "/static/images/fuck.png",
-          "/static/images/fuck.png"
+          "/static/images/《加勒比海盗5：死无对证》.jpg",
+          "/static/images/《迷失Z城》.jpg",
+          "/static/images/《神奇女侠》.jpg",
+          "/static/images/《异星觉醒》.jpg"
         ],
         movieList: [
-          {
-            img: 'http://p0.meituan.net/165.220/movie/ee5e691b425292f455c3eac5c628cfc7904509.png',
-            title: '速度与激情7',
-            score: 9.4,
-            desc: '故事将延续上一部剧情，多米尼克与莱蒂共度蜜月，布莱恩与米娅退出了赛车界，众人的生活渐趋平淡，而查理兹·塞隆饰演的神秘女子Cipher的出现却打乱了所有平静，她引诱多米尼克走上犯罪道路，令整个队伍卷入信任与背叛的危机，生死患难..',
-            id: 1
-          },
-          {
-            img: 'http://p0.meituan.net/165.220/movie/aeb864fa21d578d845b9cefc056e40cb2874891.jpg',
-            title: '速度与激情8',
-            score: 9.4,
-            desc: '故事将延续上一部剧情，多米尼克与莱蒂共度蜜月，布莱恩与米娅退出了赛车界，众人的生活渐趋平淡，而查理兹·塞隆饰演的神秘女子Cipher的出现却打乱了所有平静，她引诱多米尼克走上犯罪道路，令整个队伍卷入信任与背叛的危机，生死患难..',
-            id: 2
-          },
-          {
-            img: 'http://p0.meituan.net/165.220/movie/f8518634d7357eca5496b7e7d690dca5760722.jpg',
-            title: '速度与激情9',
-            score: 9.4,
-            desc: '故事将延续上一部剧情，多米尼克与莱蒂共度蜜月，布莱恩与米娅退出了赛车界，众人的生活渐趋平淡，而查理兹·塞隆饰演的神秘女子Cipher的出现却打乱了所有平静，她引诱多米尼克走上犯罪道路，令整个队伍卷入信任与背叛的危机，生死患难..',
-            id: 3
-          },
+
         ]
       }
     },
@@ -78,7 +58,9 @@
       fetch () {
         Movie.fetch(this, 0, 10)
           .then(res => {
-            console.log(res)
+            this.movieList = res.body.data.map(item => {
+              return JSON.parse(item.maoyanjson)
+            })
           })
           .catch(err => {
             HTTPErrHandler(this, err)
