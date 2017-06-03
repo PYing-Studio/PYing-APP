@@ -5,7 +5,7 @@
     <mu-raised-button label="登录" class="login-btn" to="/"/>
     <div class="container">
       <mu-flat-button label="忘记密码?" class="flat-btn"/>
-      <mu-flat-button label="新用户注册" class="flat-btn"/>
+      <mu-flat-button label="新用户注册" class="flat-btn" @click="useRegister"/>
     </div>
   </div>
 </template>
@@ -20,6 +20,9 @@
     methods: {
       handleInputOverflow (isOverflow) {
         this.inputErrorText = isOverflow ? '格式错误！！！！' : ''
+      },
+      useRegister() {
+          this.$router.push('/signup')
       }
     }
   }

@@ -1,6 +1,11 @@
 <template>
-  <div class="hello">
-    <p>处理注册</p>
+  <div class="userInfo">
+    <mu-text-field label="用户名" labelFloat fullWidth /><br/>
+    <mu-text-field label="密码" type="password" labelFloat fullWidth /><br/>
+    <mu-text-field label="确认密码" type="password" labelFloat fullWidth /><br/>
+    <mu-text-field label="邮箱" labelFloat fullWidth /><br/>
+    <mu-text-field label="手机号" labelFloat fullWidth /><br/>
+    <mu-raised-button label="注册" class="register" @click="userRegistered"/>
   </div>
 </template>
 
@@ -10,6 +15,11 @@
       return {
 
       }
+    },
+    methods: {
+      userRegistered() {
+          this.$router.push('/')
+      },
     }
   }
 </script>
