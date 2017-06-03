@@ -1,9 +1,7 @@
 <template>
   <div id="app">
-    <mu-appbar title="热映电影" class="app-bar">
-      <mu-icon-button icon="arrow_back" slot="left" @click="onBack" />
-    </mu-appbar>
-    <router-view class="main"></router-view>
+    <router-view></router-view>
+    <mu-snackbar v-if="snackBar" :message="snackBarMsg" action="关闭" @actionClick="hideSnackbar" @close="hideSnackbar"/>
     <mu-paper id="navigation">
       <mu-bottom-nav :value="bottomNav" @change="handleChange">
         <mu-bottom-nav-item value="/" title="首页" icon="home" />
@@ -15,6 +13,7 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 export default {
   name: 'app',
   data() {
@@ -26,27 +25,73 @@ export default {
     handleChange(val) {
       this.bottomNav = val
       this.$router.push(val)
+=======
+  import bus from './service/bus'
+
+  export default {
+    name: 'app',
+    data() {
+      return {
+        bottomNav: '/',
+        snackBar: false,
+        snackBarMsg: ''
+      }
     },
-    onBack() {
-      this.$router.go(-1)
+    created () {
+      bus.$on('change-title', this.onChangeTitle)
+      bus.$on('notify', this.showSnackBar)
+    },
+    beforeDestroy() {
+      bus.$off('add-todo', this.onChangeTitle);
+>>>>>>> acc452ae1e602270889104a3280364f371d00a59
+    },
+    methods: {
+      handleChange(val) {
+        this.bottomNav = val
+        this.$router.push(val)
+      },
+      onBack() {
+        this.$router.go(-1)
+      },
+
+      onChangeTitle (param) {
+        this.navTitle = param
+      },
+
+      hideSnackbar () {
+        this.snackBar = false
+      },
+      showSnackBar (msg) {
+        if (typeof msg === 'string') {
+          this.snackBarMsg = msg
+        } else {
+          this.snackBarMsg = '发生了什么错误'
+        }
+
+        this.snackBar = true
+      }
     }
   }
-}
 </script>
 
 <style>
-#navigation {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-}
+  #navigation {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
 
-.main {
-  padding-top: 56px;
-  padding-bottom: 80px;
-}
+  .main {
+    padding-top: 56px;
+    padding-bottom: 80px;
+  }
 
-.app-bar {
-  position: fixed;
-}
+  .app-bar {
+    position: fixed;
+    z-index: 20;
+  }
+
+  .mu-snackbar {
+    margin-bottom: 56px;
+  }
 </style>

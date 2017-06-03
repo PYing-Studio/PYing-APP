@@ -1,24 +1,30 @@
 <template>
   <div>
-    <el-carousel height="200px" arrow="always">
-      <el-carousel-item v-for="item in carouselItems" :key="item">
-        <img :src="item" class="carousel-item">
-      </el-carousel-item>
-    </el-carousel>
+    <mu-appbar title="热映电影" class="app-bar">
+      <mu-icon-button icon="home" slot="left"/>
+    </mu-appbar>
 
-    <div  v-for="item in movieList" :key="item.title" @click="onClickMovie(item.id)">
-      <mu-row class="movie-list" gutter>
-        <mu-col width="30" tablet="50" desktop="33">
-          <img class="cover" :src="item.img">
-        </mu-col>
-        <mu-col width="70" tablet="50" desktop="33">
-          <p class="movie-title">加勒比海盗5：死无对证</p>
-          <p>喜剧,动作,奇幻</p>
-          <p>主演:约翰尼德普，哈维尔 巴登，布...</p>
-          <p>评分: 8.9</p>
-        </mu-col>
-      </mu-row>
-      <mu-divider/>
+    <div class="main">
+      <el-carousel height="200px" arrow="always">
+        <el-carousel-item v-for="item in carouselItems" :key="item">
+          <img :src="item" class="carousel-item">
+        </el-carousel-item>
+      </el-carousel>
+
+      <div  v-for="item in movieList" :key="item.title" @click="onClickMovie(item.id)">
+        <mu-row class="movie-list" gutter>
+          <mu-col width="30" tablet="50" desktop="33">
+            <img class="cover" :src="item.img">
+          </mu-col>
+          <mu-col width="70" tablet="50" desktop="33">
+            <p class="movie-title">加勒比海盗5：死无对证</p>
+            <p>喜剧,动作,奇幻</p>
+            <p>主演:约翰尼德普，哈维尔 巴登，布...</p>
+            <p>评分: 8.9</p>
+          </mu-col>
+        </mu-row>
+        <mu-divider/>
+      </div>
     </div>
 
   </div>
@@ -64,7 +70,7 @@
     methods: {
       onClickMovie (id) {
         this.$router.push({name: 'Detail', params: { id }})
-      }
+      },
     }
   }
 </script>

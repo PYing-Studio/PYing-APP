@@ -27,4 +27,14 @@
 
 <style scoped>
 
+  .userInfo {
+     margin: 1em;
+    text-align: center;
+    }
+  .register {
+    background-color: lightgreen;
+    color: white;
+    text-align: center;
+  }
+
 </style>
