@@ -10,10 +10,10 @@
       </video-player>
 
       <mu-card id="movie-card">
-        <mu-card-title :title="movie.nm" :subTitle="'评分:' + movie.sc"/>
+        <mu-card-title :title="movie.name" :subTitle="'评分:' + movie.sc"/>
         <mu-card-text>
           <p>导演: {{ movie.dir }}</p>
-          <p>类型: {{ movie.ver }}</p>
+          <p>类型: {{ movie.cat }}</p>
           {{ movie.dra }}
         </mu-card-text>
       </mu-card>
@@ -56,7 +56,7 @@
     created () {
       Movie.fetchOne(this, this.$route.params.id)
         .then(res => {
-          this.movie = JSON.parse(res.body.data.maoyanjson).MovieDetailModel
+          this.movie = res.body.data
 
           this.playerOptions.poster = this.movie.img
           this.playerOptions.sources[0].src = this.movie.vd
@@ -71,7 +71,7 @@
       },
 
       buy() {
-        this.$router.push({name: 'NewOrder', params: { id: this.movie.id }})
+        this.$router.push({name: 'NewOrder', params: { id: this.movie.id }, query: {movie: this.movie.name}})
       }
     }
   }

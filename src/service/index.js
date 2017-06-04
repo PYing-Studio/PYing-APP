@@ -24,14 +24,14 @@ const CRUD = (ctx, operation, fakeUrl, form) => {
     return ctx.$http[operation](url)
       .then(handleResponse)
   } else if (['put', 'post'].indexOf(operation) !== -1) {
-    return ctx.$http[operation](url, form)
+    return ctx.$http[operation](url, form, {emulateJSON: true})
       .then(handleResponse)
   }
 }
 
 const User = {
   login (ctx, user) {
-    return CRUD(ctx, 'post', '/user/login?username=lin&password=lin', user)
+    return CRUD(ctx, 'post', '/user/login', user)
   },
 
   logout (ctx) {
@@ -39,7 +39,7 @@ const User = {
   },
 
   register (ctx, user) {
-    return CRUD(ctx, 'post', '/user/register?username=k&phone=l&password=9&email=0&nickname=k', user)
+    return CRUD(ctx, 'post', '/user/register', user)
   }
 }
 
@@ -51,6 +51,10 @@ const Movie = {
   fetchOne (ctx, id) {
     return CRUD(ctx, 'get', `/movie/${id}`)
   },
+
+  fetchCinema (ctx) {
+    return CRUD(ctx, 'get', '/cinema?city=广州&area=')
+  }
 }
 
 const Order = {
@@ -86,18 +90,18 @@ const Yueyin = {
 }
 
 const HTTPErrHandler = (ctx, err) => {
-  // if (err.status === 401) {
-  //   bus.$emit('notify', '会话已过期，请重新登录')
-  //   // 1秒后跳转到登录页面
-  //   setTimeout(() => {
-  //     ctx.$router.push({name: 'login'})
-  //   }, 1000)
-  // } else if (err.status === 200) {
-  //   bus.$emit('notify', err.body.msg)
-  // } else {
-  //   console.log(err)
-  //   bus.$emit('notify', '网络错误')
-  // }
+  if (err.status === 401) {
+    bus.$emit('notify', '会话已过期，请重新登录')
+    // 1秒后跳转到登录页面
+    setTimeout(() => {
+      ctx.$router.push({name: 'login'})
+    }, 1000)
+  } else if (err.status === 200) {
+    bus.$emit('notify', err.body.msg)
+  } else {
+    console.log(err)
+    bus.$emit('notify', '网络错误')
+  }
 }
 
 export {

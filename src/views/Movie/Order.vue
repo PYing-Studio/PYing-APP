@@ -5,10 +5,10 @@
     </mu-appbar>
 
     <div class="main">
-      <mu-select-field v-model="cinemaId" :labelFocusClass="['label-foucs']"
+      <mu-select-field v-model="cinemaName" :labelFocusClass="['label-foucs']"
                        label="选择您附近的影院" fullWidth>
-        <mu-menu-item v-for="item,index in cinemaList" :key="index" :value="item.id"
-                      :title="item.value"/>
+        <mu-menu-item v-for="item,index in cinemaList" :key="index" :value="item.name"
+                      :title="item.name"/>
       </mu-select-field>
 
       <mu-date-picker v-model="date" hintText="请选择观影日期" fullWidth
@@ -30,7 +30,7 @@
 
 <script>
   import bus from '../../service/bus'
-  import { Order, HTTPErrHandler } from '../../service'
+  import { Movie, Order, HTTPErrHandler } from '../../service'
 
   export default {
 
@@ -41,16 +41,26 @@
           {id: '002', value: '影之刃'},
           {id: '003', value: '天下HD'}
         ],
-        timeList: ['8:00', '9:00', '10:00'],
+        timeList: ['08:00', '09:00', '10:00'],
 
         showTime: '',
-        cinemaId: '001',
+        cinemaId: '1',
+        cinemaName: '',
         movieId: '',
         seatNum: 1,
         seat: '',
         date: ''
 
       }
+    },
+    created () {
+      Movie.fetchCinema(this)
+        .then(res => {
+          this.cinemaList = res.body.data.slice(1,6)
+        })
+        .catch(err => {
+          HTTPErrHandler(this, err)
+        })
     },
     methods: {
       onBack() {
@@ -62,11 +72,13 @@
       },
       submit () {
         const form = {
-          showTime: this.date + ' ' + this.showTime,
+          showTime: this.date + ' ' + this.showTime + ':00',
           seatNum: this.seatNum,
           cinemaId: this.cinemaId,
+          cinemaName: this.cinemaName,
           seat: this.seat,
-          movieId: this.$route.params.id
+          movieId: this.$route.params.id,
+          movieName: this.$route.query.movie
         }
 
         if (this.cinemaId === '') {

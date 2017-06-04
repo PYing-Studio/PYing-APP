@@ -17,7 +17,7 @@
             <img class="cover" :src="item.img">
           </mu-col>
           <mu-col width="70" tablet="50" desktop="33">
-            <p class="movie-title">{{ item.nm }}</p>
+            <p class="movie-title">{{ item.name }}</p>
             <p>{{ item.cat }}</p>
             <p>主演: {{ item.star }}</p>
             <p>评分: {{ item.sc }}</p>
@@ -58,9 +58,7 @@
       fetch () {
         Movie.fetch(this, 0, 10)
           .then(res => {
-            this.movieList = res.body.data.map(item => {
-              return JSON.parse(item.maoyanjson)
-            })
+            this.movieList = res.body.data
           })
           .catch(err => {
             HTTPErrHandler(this, err)
