@@ -17,7 +17,8 @@
               :on-progress="handleProgress"
               :on-success="handleSuccess">
               <img class="uploadedImg" v-if="imageUrl" :src="imageUrl">
-              <el-button v-else size="small" :loading="loading">头像 <i class="el-icon-upload el-icon&#45;&#45;right"></i></el-button>
+              <el-button v-else size="small" :loading="loading">头像 <i class="el-icon-upload el-icon&#45;&#45;right"></i>
+              </el-button>
             </el-upload>
           </div>
         </mu-paper>
@@ -56,22 +57,15 @@
       }
     },
     methods: {
-      onAdd() {
-        this.$router.push('/signup')
-      },
-      click() {
-          alert("sdc")
-      },
       login () {
         this.$router.push('/login')
-//        this.$message.error('上传头像图片大小不能超过 2MB!');
       },
       handleProgress(event, file, fileList) {
-          this.loading = true;
+        this.loading = true;
       },
       handleSuccess(response, file) {
-          this.userImgExisted = false;
-          this.imageUrl = URL.createObjectURL(file.raw);
+        this.userImgExisted = false;
+        this.imageUrl = URL.createObjectURL(file.raw);
       }
     }
   }
@@ -94,8 +88,9 @@
 
   .userImg {
   }
+
   .uploadedImg {
-    height:70px;
+    height: 70px;
     width: 70px;
     vertical-align: middle;
     text-align: center;
@@ -106,7 +101,7 @@
     width: 100px;
     margin: auto;
     display: flex;
-    justify-content:center;
+    justify-content: center;
     align-items: center;
     cursor: pointer;
     background-color: #00aa8d;

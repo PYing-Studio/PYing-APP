@@ -5,7 +5,7 @@
     </mu-appbar>
     <div class="recorderList">
       <mu-list>
-        <mu-sub-header>约影记录</mu-sub-header>
+        <mu-sub-header class="subHeader">约影记录:</mu-sub-header>
         <mu-list-item v-for="item, index in list" :title=item.name  :key="index">
           <mu-avatar :src=item.logoSrc slot="leftAvatar"/>
           <span slot="describe">
@@ -67,6 +67,11 @@
 
 <style scoped>
   .recorderList {
-    padding: 3em 0.5em;
+    padding: 4em 0.5em;
+  }
+
+  .subHeader {
+    font-weight: bold;
+    font-size: large;
   }
 </style>
