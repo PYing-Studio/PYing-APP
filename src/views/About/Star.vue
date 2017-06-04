@@ -3,15 +3,17 @@
     <mu-appbar title="我的收藏" class="app-bar">
       <mu-icon-button icon="arrow_back" slot="left" @click="onBack" />
     </mu-appbar>
-    <mu-grid-list class="starList" cols="1">
-      <mu-sub-header class="starTitle">我的收藏</mu-sub-header>
-      <mu-grid-tile v-for="item, index in list" :key="index">
-        <img src="/static/images/logo.png"/>
-        <span slot="title">{{item.title}}</span>
-        <span slot="subTitle"> <b>{{item.playTime}}</b></span>
-        <mu-icon-button icon="delete" slot="action"/>
-      </mu-grid-tile>
-    </mu-grid-list>
+
+    <div class="starList">
+      <mu-grid-list cols="1">
+        <mu-grid-tile v-for="item, index in list" :key="index">
+          <img src="/static/images/logo.png"/>
+          <span slot="title">{{item.title}}</span>
+          <span slot="subTitle"> <b>{{item.playTime}}</b></span>
+          <mu-icon-button icon="delete" slot="action"/>
+        </mu-grid-tile>
+      </mu-grid-list>
+    </div>
   </div>
 </template>
 
@@ -51,6 +53,8 @@
 
   .starList {
     overflow-y: auto;
+    margin-top: 1em;
+    padding: 3em 1em 0 1em;
   }
 
   .starTitle {
