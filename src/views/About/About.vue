@@ -8,9 +8,21 @@
       <div class="avatar">
         <!--<mu-avatar backgroundColor="white" class="usrImg" :zDepth="5" size="120" src="/static/images/logo.png" />-->
         <mu-paper class="demo-paper" circle :zDepth="2">
-          <mu-avatar backgroundColor="white" class="userImg" :size="80" src="/static/images/logo.png"/>
+          <!--<mu-avatar backgroundColor="white" class="userImg" :size="80" src="/static/images/logo.png"/>-->
+          <div class="userImg">
+            <el-upload
+              class="upload-demo"
+              action="http://chuantu.biz/upload.php"
+              :show-file-list="false"
+              :on-progress="handleProgress"
+              :on-success="handleSuccess">
+              <img class="uploadedImg" v-if="imageUrl" :src="imageUrl">
+              <el-button v-else size="small" :loading="loading">头像 <i class="el-icon-upload el-icon&#45;&#45;right"></i></el-button>
+            </el-upload>
+          </div>
         </mu-paper>
       </div>
+
       <mu-list>
         <mu-list-item title="我的订单" to="/about/order">
           <mu-icon slot="right" value="chevron_right"/>
@@ -37,30 +49,33 @@
 <script>
   export default {
     data() {
-      return {}
+      return {
+        userImgExisted: true,
+        loading: false,
+        imageUrl: '/static/images/fuck.png'
+      }
     },
     methods: {
       onAdd() {
         this.$router.push('/signup')
       },
+      click() {
+          alert("sdc")
+      },
       login () {
         this.$router.push('/login')
-        const form = {
-          username: 'kk',
-          password: 'kk',
-          phone: '13400000000',
-          nickname: 'kkk',
-          email: 'kk'
-        }
-        User.register(this, form)
-          .catch(err => {
-            HTTPErrHandler(this, err)
-          })
+//        this.$message.error('上传头像图片大小不能超过 2MB!');
+      },
+      handleProgress(event, file, fileList) {
+          this.loading = true;
+      },
+      handleSuccess(response, file) {
+          this.userImgExisted = false;
+          this.imageUrl = URL.createObjectURL(file.raw);
       }
     }
   }
 </script>
-
 
 <style scoped>
   .about {
@@ -72,21 +87,29 @@
   }
 
   .avatar {
-    text-align: center;
     height: 200px;
     background-color: #e0f7fa;
+    padding-top: 40px;
   }
 
   .userImg {
-    margin-top: 12px;
+  }
+  .uploadedImg {
+    height:70px;
+    width: 70px;
+    vertical-align: middle;
+    text-align: center;
   }
 
   .demo-paper {
-    display: inline-block;
     height: 100px;
     width: 100px;
-    margin: 20px;
-    text-align: center;
+    margin: auto;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    cursor: pointer;
+    background-color: #00aa8d;
   }
 
   .setting {

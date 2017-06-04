@@ -16,7 +16,7 @@
         </mu-list-item>
       </mu-list>
     </mobile-tear-sheet>
-    <mu-raised-button class="logout" label="退出登录" secondary to="/login" />
+    <mu-raised-button class="logout" label="退出登录" primary="" to="/login" />
   </div>
 </template>
 
@@ -44,6 +44,6 @@
 }
 
 .logout {
-  margin: 12px;
+  margin: 100px 0;
 }
 </style>
