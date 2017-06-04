@@ -45,7 +45,7 @@
         ],
         movieList: [
 
-        ]
+        ],
       }
     },
     created () {
@@ -53,7 +53,7 @@
     },
     methods: {
       onClickMovie (id) {
-        this.$router.push({name: 'Detail', params: { id }})
+        this.$router.push({name: 'Detail', params: { id}})
       },
       fetch () {
         Movie.fetch(this, 0, 10)

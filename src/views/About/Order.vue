@@ -9,7 +9,7 @@
            <img src="/static/images/logo.png"/>
            <span slot="title">{{item.movieName}}</span>
            <span slot="subTitle"> <b>{{item.playTime}}</b></span>
-           <mu-icon-button icon="star_border" slot="action"/>
+           <mu-icon-button icon="info_outline" @click="onClick" slot="action"/>
          </mu-grid-tile>
        </mu-grid-list>
      </div>
@@ -42,6 +42,11 @@
           .catch(err => {
             HTTPErrHandler(this, err)
           })
+      },
+      onClick() {
+          var payed = false
+        var id = 'test'
+        this.$router.push({name: 'orderDetail', params: {id, payed}})
       }
     }
   }

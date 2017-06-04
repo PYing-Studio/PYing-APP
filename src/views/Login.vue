@@ -22,6 +22,7 @@
 
 <script>
   import {User, HTTPErrHandler} from '../service'
+  import bus from '../service/bus'
 
   export default {
     data () {
@@ -35,19 +36,32 @@
         this.$router.push('/signup')
       },
       login () {
-        this.$router.push('/')
         const form = {
           username: this.l_username,
           password: this.l_password,
         }
+
+        if (this.l_username === '') {
+            return this.notify('请填写用户名')
+        }
+
+        if (this.l_password === '') {
+          return this.notify('请填写密码')
+        }
         User.login(this, form)
-          .then(this.$router.push('/'))
+          .then(() => {
+            this.notify('登录成功')
+            this.$router.push('/')
+          })
           .catch(err => {
             HTTPErrHandler(this, err)
           })
       },
       onBack() {
         this.$router.go(-1)
+      },
+      notify (msg) {
+        bus.$emit('notify', msg)
       }
     }
   }

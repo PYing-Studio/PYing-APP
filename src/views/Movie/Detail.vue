@@ -64,6 +64,7 @@
         .catch(err => {
           HTTPErrHandler(this, err)
         })
+
     },
     methods: {
       onBack() {

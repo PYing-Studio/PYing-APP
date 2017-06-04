@@ -25,6 +25,8 @@
 
 <script>
   import {User, HTTPErrHandler} from '../service'
+  import bus from '../service/bus'
+
   export default {
     data () {
       return {
@@ -44,6 +46,27 @@
           phone: this.email,
           nickname: 'kk'
         }
+
+        if (this.username === '') {
+          return this.notify('用户名为空')
+        }
+
+        if (this.password === '') {
+          return this.notify('密码为空')
+        }
+
+        if (this.password !== this.confirmPassword) {
+          return this.notify('密码输入不一致')
+        }
+
+        if (this.email === '') {
+          return this.notify('邮箱为空')
+        }
+
+        if (this.phone === '') {
+          return this.notify('手机号为空')
+        }
+
         User.register(this, form)
           .then(this.$router.push('/login'))
           .catch(err => {
@@ -52,6 +75,9 @@
       },
       onBack() {
         this.$router.go(-1)
+      },
+      notify (msg) {
+        bus.$emit('notify', msg)
       }
     }
   }

@@ -11,6 +11,7 @@ import Order from '@/views/About/Order'
 import Star from '@/views/About/Star'
 import Setting from '@/views/About/Setting'
 import Recorder from '@/views/About/Recorder'
+import OrderDetail from '@/views/About/OrderDetail'
 
 Vue.use(Router)
 
@@ -74,6 +75,11 @@ export default new Router({
       path: '/about/recorder',
       name: 'setting',
       component: Recorder
+    },
+    {
+      path: '/about/orderDetail',
+      name: 'orderDetail',
+      component: OrderDetail
     }
   ]
 })
