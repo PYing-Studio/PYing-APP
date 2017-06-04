@@ -55,6 +55,7 @@
         }
 
         this.snackBar = true
+        setTimeout(() => this.snackBar = false, 2000)
       }
     }
   }

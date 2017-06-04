@@ -42,7 +42,7 @@
           password: this.password,
           email: this.email,
           phone: this.email,
-          nickname: ''
+          nickname: 'kk'
         }
         User.register(this, form)
           .then(this.$router.push('/login'))

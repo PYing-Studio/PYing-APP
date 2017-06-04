@@ -31,7 +31,7 @@ const CRUD = (ctx, operation, fakeUrl, form) => {
 
 const User = {
   login (ctx, user) {
-    return CRUD(ctx, 'post', '/user/login', user)
+    return CRUD(ctx, 'post', '/user/login?username=lin&password=lin', user)
   },
 
   logout (ctx) {
@@ -39,17 +39,17 @@ const User = {
   },
 
   register (ctx, user) {
-    return CRUD(ctx, 'post', '/user/register', user)
+    return CRUD(ctx, 'post', '/user/register?username=k&phone=l&password=9&email=0&nickname=k', user)
   }
 }
 
 const Movie = {
   fetch (ctx) {
-    return CRUD(ctx, 'get', '/movie/hotMovies')
+    return CRUD(ctx, 'get', '/movie/?offset=0&limit=1000')
   },
 
   fetchOne (ctx, id) {
-    return CRUD(ctx, 'get', `/movie/detail/${id}`)
+    return CRUD(ctx, 'get', `/movie/${id}`)
   },
 }
 
