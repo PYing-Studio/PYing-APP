@@ -19,23 +19,20 @@
         </mu-list-item>
         <mu-list-item :title="order.createdAt" describeText="订单创建时间">
         </mu-list-item>
-        <mu-list-item :title="getStatus(order.num)" describeText="订单状态">
+        <mu-list-item :title="getStatus(order.status)" describeText="订单状态">
         </mu-list-item>
       </mu-list>
       <div class="payBtn">
         <mu-raised-button v-if="order.status === 2" label="支付" primary @click="payOrder"/>
-        <mu-raised-button v-if="order.status === 1" label="发出邀请" primary @click="createDating"/>
+        <mu-raised-button v-if="order.status === 1 && order.hasYueyin !== 1" label="发出邀请" primary @click="createDating"/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import { Order, HTTPErrHandler } from '../../service'
-
-  function getDate (date) {
-
-  }
+  import { Order, Yueyin, HTTPErrHandler } from '../../service'
+  import bus from '../../service/bus'
 
   export default {
     data() {
@@ -93,15 +90,23 @@
       payOrder () {
         Order.pay(this, this.id)
           .then(res => {
-            console.log(res)
+            bus.$emit('notify', '付款成功')
           })
+          .then(this.fetch)
           .catch(err => {
             HTTPErrHandler(this, err)
           })
       },
 
       createDating () {
-
+        Yueyin.create(this, this.id)
+          .then(() => {
+            bus.$emit('notify', '发起约影成功')
+          })
+          .then(this.fetch)
+          .catch(err => {
+            HTTPErrHandler(this, err)
+          })
       }
     }
   }
