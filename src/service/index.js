@@ -75,7 +75,7 @@ const Order = {
   },
 
   pay (ctx, id) {
-    return CRUD(ctx, 'post', `/order/${id}`)
+    return CRUD(ctx, 'post', `/order/${id}/pay`)
   }
 }
 
@@ -100,7 +100,7 @@ const HTTPErrHandler = (ctx, err) => {
     bus.$emit('notify', err.body.msg)
   } else {
     console.log(err)
-    bus.$emit('notify', '网络错误')
+    bus.$emit('notify', err.statusText)
   }
 }
 

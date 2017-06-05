@@ -77,7 +77,7 @@ export default new Router({
       component: Recorder
     },
     {
-      path: '/about/orderDetail',
+      path: '/about/order/:id',
       name: 'orderDetail',
       component: OrderDetail
     }

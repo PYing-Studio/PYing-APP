@@ -12,7 +12,7 @@
                       :describeText="item.showTime">
           <mu-avatar icon="theaters" slot="leftAvatar"/>
           <mu-icon-menu slot="right" icon="more_vert" tooltip="操作">
-            <mu-menu-item title="操作" @click="onClickOrder(item.movieId)"/>
+            <mu-menu-item title="操作" @click="onClickOrder(item.id)"/>
             <mu-menu-item title="删除" @click="onRemoveOrder(item.id)"/>
           </mu-icon-menu>
         </mu-list-item>
@@ -43,6 +43,9 @@
         Order.fetch(this)
           .then(res => {
             this.list = res.body.data
+            this.list.forEach(item => {
+              item.showTime = new Date(item.showTime).toLocaleString()
+            })
           })
           .catch(err => {
             HTTPErrHandler(this, err)
