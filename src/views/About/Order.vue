@@ -1,18 +1,24 @@
 <template>
-  <div class="orderListContainer">
+  <div>
     <mu-appbar title="我的订单" class="app-bar">
       <mu-icon-button icon="arrow_back" slot="left" @click="onBack" />
     </mu-appbar>
-     <div class="orderList">
-       <mu-grid-list  :cols="1">
-         <mu-grid-tile v-for="item, index in list" :key="index">
-           <img src="/static/images/logo.png"/>
-           <span slot="title">{{item.movieName}}</span>
-           <span slot="subTitle"> <b>{{item.playTime}}</b></span>
-           <mu-icon-button icon="info_outline" @click="onClick" slot="action"/>
-         </mu-grid-tile>
-       </mu-grid-list>
-     </div>
+
+    <div class="main">
+      <mu-list>
+        <mu-list-item v-for="item, index in list"
+                      :key="index"
+                      :title="item.movieName"
+                      :describeText="item.showTime">
+          <mu-avatar icon="theaters" slot="leftAvatar"/>
+          <mu-icon-menu slot="right" icon="more_vert" tooltip="操作">
+            <mu-menu-item title="操作" @click="onClickOrder(item.movieId)"/>
+            <mu-menu-item title="删除" @click="onRemoveOrder(item.id)"/>
+          </mu-icon-menu>
+        </mu-list-item>
+      </mu-list>
+    </div>
+
   </div>
 </template>
 
@@ -37,16 +43,22 @@
         Order.fetch(this)
           .then(res => {
             this.list = res.body.data
-            console.log(this.list)
           })
           .catch(err => {
             HTTPErrHandler(this, err)
           })
       },
-      onClick() {
-          var payed = false
-        var id = 'test'
-        this.$router.push({name: 'orderDetail', params: {id, payed}})
+
+      onRemoveOrder (id) {
+        Order.remove(this, id)
+          .then(this.fetch)
+          .catch(err => {
+            HTTPErrHandler(this, err)
+          })
+      },
+
+      onClickOrder (id) {
+        this.$router.push({name: 'orderDetail', params: { id }})
       }
     }
   }
@@ -54,27 +66,5 @@
 
 
 <style scoped>
-  .orderListContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .orderList {
-    overflow-y: auto;
-    margin-top: 1em;
-    padding: 3em 1em 0 1em;
-  }
-
-  .orderTitle {
-    text-align: center;
-    font-size: 1.5em;
-    font-weight: bold;
-    margin: auto 16px;
-  }
-
-  .app-bar {
-  }
 
 </style>
