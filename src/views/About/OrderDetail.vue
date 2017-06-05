@@ -34,7 +34,6 @@
   import { Order, HTTPErrHandler } from '../../service'
 
   function getDate (date) {
-
   }
 
   export default {

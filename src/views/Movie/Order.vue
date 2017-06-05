@@ -94,7 +94,7 @@
         Order.create(this, form)
           .then(() => {
             this.notify('提交订单成功')
-            this.$router.replace('/')
+            this.$router.push({name: 'order'})
           })
           .catch(err => {
             HTTPErrHandler(this, err)

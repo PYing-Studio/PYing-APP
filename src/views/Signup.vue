@@ -83,9 +83,7 @@
   }
 </script>
 
-
 <style scoped>
-
   .userInfo {
     text-align: center;
   }
@@ -94,14 +92,7 @@
     margin: 1em 0.8em;
   }
 
-  .register {
-    background-color: lightgreen;
-    color: white;
-    text-align: center;
-  }
-
   .regBtn {
     margin-top: 100px;
   }
-
 </style>
