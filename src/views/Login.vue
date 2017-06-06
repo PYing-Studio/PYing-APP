@@ -67,7 +67,6 @@
   }
 </script>
 
-
 <style scoped>
   .login {
     text-align: center;
@@ -84,9 +83,4 @@
   .loginBtn {
     margin-top: 100px;
   }
-
-  .app-bar {
-    margin-bottom: 100px;
-  }
-
 </style>

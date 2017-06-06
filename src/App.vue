@@ -1,12 +1,15 @@
 <template>
   <div id="app">
-    <router-view></router-view>
-    <mu-snackbar v-if="snackBar" :message="snackBarMsg" action="关闭" @actionClick="hideSnackbar" @close="hideSnackbar"/>
+    <transition name="slide-fade">
+      <router-view></router-view>
+    </transition>
+    <mu-snackbar v-if="snackBar" :message="snackBarMsg" action="关闭" @actionClick="hideSnackbar"
+                 @close="hideSnackbar"/>
     <mu-paper id="navigation">
       <mu-bottom-nav :value="bottomNav" @change="handleChange">
-        <mu-bottom-nav-item value="/" title="首页" icon="home" />
-        <mu-bottom-nav-item value="/date" title="约影" icon="group" />
-        <mu-bottom-nav-item value="/about" title="我" icon="person" />
+        <mu-bottom-nav-item value="/" title="首页" icon="home"/>
+        <mu-bottom-nav-item value="/date" title="约影" icon="group"/>
+        <mu-bottom-nav-item value="/about" title="我" icon="person"/>
       </mu-bottom-nav>
     </mu-paper>
   </div>
@@ -84,5 +87,14 @@
 
   .mu-dropDown-menu {
     text-align: left !important;
+  }
+
+  .slide-fade-enter-active {
+    transition: all .5s ease-in-out;
+  }
+
+  .slide-fade-enter, .slide-fade-leave-active {
+    transform: translateX(10px);
+    opacity: 0;
   }
 </style>

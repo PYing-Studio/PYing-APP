@@ -6,9 +6,7 @@
 
     <div class="main">
       <div class="avatar">
-        <!--<mu-avatar backgroundColor="white" class="usrImg" :zDepth="5" size="120" src="/static/images/logo.png" />-->
         <mu-paper class="demo-paper" circle :zDepth="2">
-          <!--<mu-avatar backgroundColor="white" class="userImg" :size="80" src="/static/images/logo.png"/>-->
           <div class="userImg">
             <el-upload
               class="upload-demo"
