@@ -5,19 +5,18 @@
     </mu-appbar>
     <div class="recorderList">
       <mu-list>
-        <mu-sub-header class="subHeader">约影列表:</mu-sub-header>
-        <mu-list-item v-for="item, index in list" :title=item.name  :key="index">
+        <mu-list-item v-for="item, index in list" :title="item.username"  :key="index">
           <mu-avatar :src=item.logoSrc slot="leftAvatar"/>
           <span slot="describe">
-            <span style="color: rgba(0, 96, 100, .87)">{{item.film}} - </span>
-            {{item.cinema}}
+            <span style="color: rgba(0, 96, 100, .87)">{{item.movieName}} - </span>
+            {{item.cinemaName}}
           </span>
           <div>
             <span slot="describe">
-            {{item.remain}}
-          </span>
+              {{ getDateString(item.showTime) }} 剩余{{ item.num }}张
+            </span>
           </div>
-          <mu-icon-menu slot="right" icon="add">
+          <mu-icon-menu slot="right" icon="add" @open="attendDating(item.id)">
           </mu-icon-menu>
         </mu-list-item>
       </mu-list>
@@ -26,47 +25,43 @@
 </template>
 
 <script>
+  import { Yueyin, HTTPErrHandler } from '../service'
+
   export default {
     data () {
       return {
         open: false,
         trigger: null,
-        list: [{
-          name: '吴思',
-          film: '大话西游',
-          cinema: '珠江国际影城',
-          remain: '2016年9月10号 剩余 1 张',
-          logoSrc: '/static/images/logo.png'
-        },
-          {
-            name: '吴思',
-            film: '大话西游',
-            cinema: '珠江国际影城',
-            remain: '2016年9月10号 剩余 1 张',
-            logoSrc: '/static/images/logo.png'
-          },
-          {
-            name: '吴思',
-            film: '大话西游',
-            cinema: '珠江国际影城',
-            remain: '2016年9月10号 剩余 1 张',
-            logoSrc: '/static/images/logo.png'
-          }
-        ]
+        list: []
       }
     },
-    mounted () {
-      this.trigger = this.$refs.button.$el
+    created () {
+      this.fetch()
     },
     methods: {
-      toggle () {
-        this.open = !this.open
-      },
-      handleClose (e) {
-        this.open = false
-      },
       onBack() {
         this.$router.go(-1)
+      },
+
+      getDateString (timestamp) {
+        return new Date(timestamp).toLocaleDateString()
+      },
+
+      fetch () {
+        Yueyin.fetchAll(this)
+          .then(res => {
+            this.list = res.body.data
+          })
+          .catch(err => {
+            HTTPErrHandler(this, err)
+          })
+      },
+
+      attendDating (id) {
+        Yueyin.attend(this, id)
+          .catch(err => {
+            HTTPErrHandler(this, err)
+          })
       }
     }
   }

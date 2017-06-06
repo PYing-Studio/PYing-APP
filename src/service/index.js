@@ -75,17 +75,29 @@ const Order = {
   },
 
   pay (ctx, id) {
-    return CRUD(ctx, 'post', `/order/${id}/pay`)
+    return CRUD(ctx, 'put', `/order/${id}/pay`)
   }
 }
 
 const Yueyin = {
-  fetch (ctx) {
+  fetchAll (ctx) {
     return CRUD(ctx, 'get', '/yueyin')
   },
 
-  create (ctx) {
-    return CRUD(ctx, 'post', '/yueyin')
+  create (ctx, orderId) {
+    return CRUD(ctx, 'post', '/yueyin', { order_id: orderId})
+  },
+
+  attend (ctx, yid) {
+    return CRUD(ctx, 'post', '/yueyin/enter', { yueyin_id: yid })
+  },
+
+  leave (ctx, yid) {
+    return CRUD(ctx, 'delete', '/yueyin/enter', { yueyin_id: yid})
+  },
+
+  fetch (ctx) {
+    return CRUD(ctx, 'get', '/yueyin/user')
   }
 }
 
