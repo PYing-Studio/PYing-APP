@@ -59,6 +59,7 @@
 
       attendDating (id) {
         Yueyin.attend(this, id)
+          .then(this.fetch)
           .catch(err => {
             HTTPErrHandler(this, err)
           })

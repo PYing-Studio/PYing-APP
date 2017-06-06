@@ -89,15 +89,19 @@ const Yueyin = {
   },
 
   attend (ctx, yid) {
-    return CRUD(ctx, 'post', '/yueyin/enter', { yueyin_id: yid })
+    return CRUD(ctx, 'post', `/yueyin/${yid}/enter`)
   },
 
   leave (ctx, yid) {
-    return CRUD(ctx, 'delete', '/yueyin/enter', { yueyin_id: yid})
+    return CRUD(ctx, 'delete', `/yueyin/${yid}/enter`)
   },
 
   fetch (ctx) {
     return CRUD(ctx, 'get', '/yueyin/user')
+  },
+
+  fetchOne (ctx, id) {
+    return CRUD(ctx, 'get', `/yueyin/${id}`)
   }
 }
 

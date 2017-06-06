@@ -26,10 +26,10 @@
         <mu-list-item title="我的订单" to="/about/order">
           <mu-icon slot="right" value="chevron_right"/>
         </mu-list-item>
-        <mu-list-item title="我的收藏" to="/about/star">
-          <mu-icon slot="right" value="chevron_right"/>
-        </mu-list-item>
-        <mu-list-item title="约影记录" to="/about/recorder">
+        <!--<mu-list-item title="我的收藏" to="/about/star">-->
+          <!--<mu-icon slot="right" value="chevron_right"/>-->
+        <!--</mu-list-item>-->
+        <mu-list-item title="约影记录" to="/about/dating">
           <mu-icon slot="right" value="chevron_right"/>
         </mu-list-item>
         <mu-divider></mu-divider>
