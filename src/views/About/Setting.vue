@@ -24,10 +24,10 @@
 
           <mu-list-item title="关于开发者" toggleNested :open="false">
             <mu-list-item slot="nested" title="电政 冯爽(Jane)" describeText="As You Like It">
-              <mu-avatar src="/static/images/logo.png" slot="leftAvatar"/>
+              <mu-avatar src="/static/images/contributors/fs.jpg" slot="leftAvatar"/>
             </mu-list-item>
             <mu-list-item slot="nested" title="计应 陈向妍(Sybil)" describeText="对产品的要求要比“一般”做得好">
-              <mu-avatar src="/static/images/logo.png" slot="leftAvatar"/>
+              <mu-avatar src="/static/images/contributors/cxy.jpg" slot="leftAvatar"/>
             </mu-list-item>
             <mu-list-item slot="nested" title="计应 林子博(Znbob)" describeText="身体是打码的本钱, 码不打完要身体何用">
               <mu-avatar src="/static/images/contributors/znbobo.jpg" slot="leftAvatar"/>
