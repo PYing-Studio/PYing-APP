@@ -6,9 +6,9 @@
 
     <div class="registerInput">
       <h2>注册</h2>
-      <mu-text-field label="用户名" labelFloat fullWidth v-model="username"/>
+      <mu-text-field label="用户名(4~16位, 字母、数字、下划线组成)" labelFloat fullWidth v-model="username"/>
       <br/>
-      <mu-text-field label="密码" type="password" labelFloat fullWidth v-model="password"/>
+      <mu-text-field label="密码(8~20位, 数字和字母组合)" type="password" labelFloat fullWidth v-model="password"/>
       <br/>
       <mu-text-field label="确认密码" type="password" labelFloat fullWidth v-model="confirmPassword"/>
       <br/>
@@ -48,10 +48,15 @@
 
         if (this.username === '') {
           return this.notify('用户名为空')
+        } else if (!/^[a-zA-z]\w{3,15}$/.test(this.username)) {
+          return this.notify('用户名格式错误')
         }
 
         if (this.password === '') {
           return this.notify('密码为空')
+        } else if (!/^.*?[\d]+.*$/.test(this.password) || !/^.*?[A-Za-z]/.test(this.password)
+          || !/^.{8,20}$/.test(this.password)) {
+          return this.notify('密码格式不正确')
         }
 
         if (this.password !== this.confirmPassword) {
@@ -60,10 +65,20 @@
 
         if (this.email === '') {
           return this.notify('邮箱为空')
+        } else {
+          var reg = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/
+          if (!reg.test(this.email)) {
+            return this.notify('请输入符合规范的邮箱账号！')
+          }
         }
 
         if (this.phone === '') {
           return this.notify('手机号为空')
+        } else {
+          var reg = /^[1][0-9]{10}$/
+           if (!reg.test(this.phone)) {
+             return this.notify('请输入正确的手机号')
+           }
         }
 
         User.register(this, form)
