@@ -88,6 +88,10 @@ const Yueyin = {
     return CRUD(ctx, 'post', '/yueyin', { order_id: orderId})
   },
 
+  cancel (ctx, yid) {
+    return CRUD(ctx, 'delete', `/yueyin/${yid}`)
+  },
+
   attend (ctx, yid) {
     return CRUD(ctx, 'post', `/yueyin/${yid}/enter`)
   },

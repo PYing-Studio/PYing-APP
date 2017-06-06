@@ -25,6 +25,7 @@
       <div class="payBtn">
         <mu-raised-button v-if="order.status === 2" label="支付" primary @click="payOrder"/>
         <mu-raised-button v-if="order.status === 1 && order.hasYueyin !== 1" label="发出邀请" primary @click="createDating"/>
+        <mu-raised-button v-if="order.status === 1 && order.hasYueyin === 1" label="取消约影" primary @click="cancelDating"/>
       </div>
     </div>
   </div>
@@ -102,6 +103,17 @@
         Yueyin.create(this, this.id)
           .then(() => {
             bus.$emit('notify', '发起约影成功')
+          })
+          .then(this.fetch)
+          .catch(err => {
+            HTTPErrHandler(this, err)
+          })
+      },
+
+      cancelDating () {
+        Yueyin.cancel(this, this.id)
+          .then(() => {
+            bus.$emit('notify', '取消约影成功')
           })
           .then(this.fetch)
           .catch(err => {
