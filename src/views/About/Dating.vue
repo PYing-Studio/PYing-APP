@@ -21,6 +21,7 @@
 
           <mu-icon-menu slot="right" icon="more_vert" tooltip="操作">
             <mu-menu-item title="详情" @click="onClickDating(item.id)"/>
+            <mu-menu-item v-if="item.username === user.username" title="删除" @click="onCancelDating(item.id)"/>
             <mu-menu-item title="退出" @click="onRemoveDating(item.id)"/>
           </mu-icon-menu>
         </mu-list-item>
@@ -31,40 +32,34 @@
 </template>
 
 <script>
-  import { Yueyin, HTTPErrHandler } from '../../service'
+  import { User, Yueyin, HTTPErrHandler } from '../../service'
 
   export default {
     data () {
       return {
         open: false,
         trigger: null,
-        list: [{
-          name: '刘洋',
-          film: '大话西游',
-          time: '2016年9月10号',
-          logoSrc: '/static/images/logo.png'
-        },
-          {
-            name: '吴思',
-            film: '大话西游',
-            time: '2016年9月10号',
-            logoSrc: '/static/images/logo.png'
-          },
-          {
-            name: '冯琳',
-            film: '大话西游',
-            time: '2016年9月10号',
-            logoSrc: '/static/images/logo.png'
-          }
-        ]
+        list: [],
+        user: {}
       }
     },
     created () {
-      this.fetch()
+      this.getUserInfo()
+        .then(this.fetch)
+        .catch(err => {
+          HTTPErrHandler(this, err)
+        })
     },
     methods: {
       onBack() {
         this.$router.go(-1)
+      },
+
+      getUserInfo () {
+        return User.me(this)
+          .then(res => {
+            this.user = res.body.data
+          })
       },
 
       fetch () {
@@ -77,9 +72,6 @@
 
             this.list = list
           })
-          .catch(err => {
-            HTTPErrHandler(this, err)
-          })
       },
 
       onClickDating (id) {
@@ -87,8 +79,15 @@
       },
 
       onRemoveDating (id) {
-        console.log(id)
         Yueyin.leave(this, id)
+          .then(this.fetch)
+          .catch(err => {
+            HTTPErrHandler(this, err)
+          })
+      },
+
+      onCancelDating (id) {
+        Yueyin.cancel(this, id)
           .then(this.fetch)
           .catch(err => {
             HTTPErrHandler(this, err)

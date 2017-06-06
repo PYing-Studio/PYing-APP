@@ -40,6 +40,14 @@ const User = {
 
   register (ctx, user) {
     return CRUD(ctx, 'post', '/user/register', user)
+  },
+
+  update (ctx, user) {
+    return CRUD(ctx, 'put', '/user')
+  },
+
+  me (ctx) {
+    return CRUD(ctx, 'get', '/user')
   }
 }
 
