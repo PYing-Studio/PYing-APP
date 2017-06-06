@@ -90,7 +90,7 @@
   }
 
   .slide-fade-enter-active {
-    transition: all .5s ease-in-out;
+    transition: all .3s ease-in-out;
   }
 
   .slide-fade-enter, .slide-fade-leave-active {
