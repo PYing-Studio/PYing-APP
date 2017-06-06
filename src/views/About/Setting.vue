@@ -4,7 +4,7 @@
       <mu-icon-button icon="arrow_back" slot="left" @click="onBack"/>
     </mu-appbar>
     <div class="setting-sheet">
-      <mobile-tear-sheet>
+
         <mu-list :value="theme" @change="changeTheme">
           <mu-list-item title="主题颜色" toggleNested :open="false">
             <mu-icon slot="left" value="color_lens"/>
@@ -49,10 +49,10 @@
           </mu-list-item>
 
         </mu-list>
-      </mobile-tear-sheet>
+
     </div>
     <div class="logout">
-      <mu-raised-button label="退出登录" primary="" to="/login"/>
+      <mu-raised-button label="退出登录" primary @click="logout"/>
     </div>
   </div>
 </template>
@@ -62,6 +62,8 @@
   import dark from '!raw-loader!muse-ui/dist/theme-dark.css'
   import carbon from '!raw-loader!muse-ui/dist/theme-carbon.css'
   import teal from '!raw-loader!muse-ui/dist/theme-teal.css'
+  import { User, HTTPErrHandler } from '../../service'
+
   export default {
     data () {
       return {
@@ -91,6 +93,16 @@
         styleEl.id = themeId
         document.body.appendChild(styleEl)
         return styleEl
+      },
+
+      logout () {
+        User.logout(this)
+          .then(() => {
+            this.$router.replace('/')
+          })
+          .catch(err => {
+            HTTPErrHandler(this, err)
+          })
       }
     }
   }
