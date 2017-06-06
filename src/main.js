@@ -8,6 +8,7 @@ import VueResource from 'vue-resource'
 import Element from 'element-ui'
 
 import 'muse-ui/dist/muse-ui.css'
+import 'muse-ui/dist/theme-carbon.css'
 import 'muse-ui/dist/theme-teal.css'
 
 Vue.use(VueResource)
