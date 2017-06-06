@@ -1,18 +1,18 @@
 <template>
-  <div class="login">
-    <mu-appbar title="约影">
+  <div>
+    <mu-appbar title="登录">
       <mu-icon-button icon="arrow_back" slot="left" @click="onBack"/>
     </mu-appbar>
-    <div class="loginInput">
-      <h2>登录</h2>
+
+    <div class="main input-wrapper">
       <mu-text-field label="用户名" labelFloat fullWidth v-model="l_username"/>
       <br/>
       <mu-text-field label="密码" type="password" labelFloat fullWidth v-model="l_password"/>
       <br/>
-      <div class="loginBtn">
+      <div class="submit-btn">
         <mu-raised-button label="登录" primary @click="login"/>
       </div>
-      <div class="userReg">
+      <div class="user-reg">
         <mu-flat-button label="没有账号?" icon="add_circle_outline" labelPosition="before"
                         color="#00aa8d" @click="useRegister"/>
       </div>
@@ -68,19 +68,11 @@
 </script>
 
 <style scoped>
-  .login {
-    text-align: center;
-  }
-
-  .loginInput {
-    margin: 1em 0.8em;
-  }
-
-  .userReg {
+  .user-reg {
     text-align: right;
   }
 
-  .loginBtn {
+  .submit-btn {
     margin-top: 100px;
   }
 </style>

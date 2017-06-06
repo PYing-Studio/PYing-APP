@@ -1,14 +1,13 @@
 <template>
-  <div class="userInfo">
-    <mu-appbar title="约影">
+  <div>
+    <mu-appbar title="注册">
       <mu-icon-button icon="arrow_back" slot="left" @click="onBack"/>
     </mu-appbar>
 
-    <div class="registerInput">
-      <h2>注册</h2>
+    <div class="main input-wrapper">
       <mu-text-field label="用户名(4~16位, 字母、数字、下划线组成)" labelFloat fullWidth v-model="username"/>
       <br/>
-      <mu-text-field label="密码(8~20位, 数字和字母组合)" type="password" labelFloat fullWidth v-model="password"/>
+      <mu-text-field label="密码(4~20位, 数字和字母组合)" type="password" labelFloat fullWidth v-model="password"/>
       <br/>
       <mu-text-field label="确认密码" type="password" labelFloat fullWidth v-model="confirmPassword"/>
       <br/>
@@ -55,7 +54,7 @@
         if (this.password === '') {
           return this.notify('密码为空')
         } else if (!/^.*?[\d]+.*$/.test(this.password) || !/^.*?[A-Za-z]/.test(this.password)
-          || !/^.{8,20}$/.test(this.password)) {
+          ) {
           return this.notify('密码格式不正确')
         }
 
@@ -98,16 +97,4 @@
 </script>
 
 <style scoped>
-  .userInfo {
-    text-align: center;
-  }
-
-  .registerInput {
-    margin: 0 0.8em;
-  }
-
-  .regBtn {
-    margin-top: 1em;
-    margin-bottom: 10em;
-  }
 </style>

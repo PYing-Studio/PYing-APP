@@ -97,4 +97,9 @@
     transform: translateX(10px);
     opacity: 0;
   }
+
+  .input-wrapper {
+    margin: 0 0.8em;
+    text-align: center;
+  }
 </style>
