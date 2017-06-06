@@ -26,7 +26,6 @@
 <script>
   import {User, HTTPErrHandler} from '../service'
   import bus from '../service/bus'
-
   export default {
     data () {
       return {
@@ -89,10 +88,11 @@
   }
 
   .registerInput {
-    margin: 1em 0.8em;
+    margin: 0 0.8em;
   }
 
   .regBtn {
-    margin-top: 100px;
+    margin-top: 1em;
+    margin-bottom: 10em;
   }
 </style>
