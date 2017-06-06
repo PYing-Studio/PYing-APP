@@ -3,14 +3,14 @@ import Router from 'vue-router'
 import Main from '@/views/Movie/Main'
 import Detail from '@/views/Movie/Detail'
 import NewOrder from '@/views/Movie/Order'
-import Date from '@/views/Date'
+import Date from '@/views/Dating'
 import Login from '@/views/Login'
 import Signup from '@/views/Signup'
 import About from '@/views/About/About'
 import Order from '@/views/About/Order'
-import Star from '@/views/About/Star'
 import Setting from '@/views/About/Setting'
-import Recorder from '@/views/About/Recorder'
+import DatingRecorder from '@/views/About/Dating'
+import DatingRecorderDetail from '@/views/About/DatingDetail'
 import OrderDetail from '@/views/About/OrderDetail'
 
 Vue.use(Router)
@@ -62,19 +62,19 @@ export default new Router({
       component: Order
     },
     {
-      path: '/about/star',
-      name: 'star',
-      component: Star
-    },
-    {
       path: '/about/setting',
       name: 'setting',
       component: Setting
     },
     {
-      path: '/about/recorder',
-      name: 'setting',
-      component: Recorder
+      path: '/about/dating',
+      name: 'datingRecorder',
+      component: DatingRecorder
+    },
+    {
+      path: '/about/dating/:id',
+      name: 'datingRecorderDetail',
+      component: DatingRecorderDetail
     },
     {
       path: '/about/order/:id',
