@@ -13,7 +13,7 @@
           </span>
           <div>
             <span slot="describe">
-              {{ getDateString(item.showTime) }} 剩余{{ item.num }}张
+              {{ getDateString(item.showTime) }} 共{{ item.num }}张 剩余{{ item.leaveNum }}张
             </span>
           </div>
           <mu-icon-menu slot="right" icon="add" @open="attendDating(item.id)">
