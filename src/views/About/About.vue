@@ -24,6 +24,7 @@
       </div>
 
       <mu-list>
+        <mu-divider></mu-divider>
         <mu-list-item title="我的订单" to="/about/order">
           <mu-icon slot="right" value="chevron_right"/>
         </mu-list-item>
@@ -122,7 +123,7 @@
 
   .avatar {
     height: 200px;
-    background-color: #e0f7fa;
+    /*background-color: #e0f7fa;*/
     padding-top: 40px;
   }
 
@@ -146,6 +147,6 @@
   }
 
   .setting {
-    margin-top: 2em;
+    margin-top: 1em;
   }
 </style>

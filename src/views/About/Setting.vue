@@ -67,7 +67,7 @@
   export default {
     data () {
       return {
-        theme: 'light',
+        theme: 'teal',
         themes: {
           light,
           dark,
@@ -81,6 +81,9 @@
         this.$router.go(-1)
       },
       changeTheme (theme) {
+        // color in chrome navigation bar
+        this.changeChromeBarColor(theme)
+
         this.theme = theme
         const styleEl = this.getThemeStyle()
         styleEl.innerHTML = this.themes[theme] || ''
@@ -103,6 +106,27 @@
           .catch(err => {
             HTTPErrHandler(this, err)
           })
+      },
+
+      changeChromeBarColor (theme) {
+        let color = ''
+        switch (theme) {
+          case 'light':
+            color = '#7E57C2'
+            break
+          case 'dark':
+            color = '#1976D2'
+            break
+          case 'carbon':
+            color = '#474A4F'
+            break
+          case 'teal':
+            color = '#009688'
+            break
+          default:
+            color = '#009688'
+        }
+        document.head.querySelector('meta[name=theme-color]').content = color
       }
     }
   }
