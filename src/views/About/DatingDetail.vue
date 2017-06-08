@@ -67,8 +67,6 @@
 
             this.order.date = date.slice(0, 10)
             this.order.time = date.substr(11, 5)
-            if (this.order.friends.length > 0)
-              this.order.friends = this.order.friends.split("'#'")
           })
           .catch(err => {
             HTTPErrHandler(this, err)

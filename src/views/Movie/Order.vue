@@ -5,21 +5,60 @@
     </mu-appbar>
 
     <div class="main">
-      <mu-select-field v-model="cinemaName" :labelFocusClass="['label-foucs']"
-                       label="选择您附近的影院" fullWidth>
-        <mu-menu-item v-for="item,index in cinemaList" :key="index" :value="item.name"
-                      :title="item.name"/>
+      <mu-select-field
+        v-model="order.cinemaName"
+        :labelFocusClass="['label-foucs']"
+        label="选择您附近的影院"
+        @change="onSelectCinema"
+        fullWidth>
+        <mu-menu-item
+          v-for="item,index in cinemaList"
+          :key="index"
+          :value="item"
+          :title="item">
+        </mu-menu-item>
       </mu-select-field>
 
-      <mu-date-picker v-model="date" hintText="请选择观影日期" fullWidth
-                      :shouldDisableDate="disableYesterday"/>
+      <mu-date-picker
+        v-model="date"
+        hintText="请选择观影日期"
+        fullWidth
+        :autoOk="true"
+        :shouldDisableDate="dateFilter"
+        @change="onSelectDate">
+      </mu-date-picker>
 
-      <mu-select-field v-model="showTime" fullWidth
-                       :labelFocusClass="['label-foucs']" label="请选择观影时间">
-        <mu-menu-item v-for="item,index in timeList" :key="index" :value="item" :title="item" />
+      <mu-select-field
+        v-model="order.showTimeId"
+        :labelFocusClass="['label-foucs']"
+        @change="onSelectTime"
+        label="请选择观影时间"
+        fullWidth>
+        <mu-menu-item
+          v-for="item,index in timeList"
+          :key="index"
+          :value="item.id"
+          :title="item.value">
+        </mu-menu-item>
       </mu-select-field>
 
-      <mu-text-field v-model="seatNum" label="请填写票数" labelFloat fullWidth type="number"/>
+      <mu-text-field
+        v-model="order.seatNum"
+        label="请填写票数"
+        labelFloat
+        fullWidth
+        type="number">
+      </mu-text-field>
+
+      <mu-text-field
+        v-model="leaveNum"
+        :disabled="true"
+        label="剩余票数"
+        labelFloat
+        fullWidth
+        type="number">
+      </mu-text-field>
+
       <div class="buyTickets">
         <mu-raised-button label="提交订单" @click="submit" primary/>
       </div>
@@ -36,30 +75,37 @@
 
     data () {
       return {
-        cinemaList: [
-          {id: '001', value: '阴阳师'},
-          {id: '002', value: '影之刃'},
-          {id: '003', value: '天下HD'}
-        ],
-        timeList: ['08:00', '09:00', '10:00'],
+        cinemaList: [],
+        dateTimeList: [],
+        dateList: [],
+        timeList: [],
+        date: '',
+        leaveNum: 0,
 
-        showTime: '',
-        cinemaId: '1',
-        cinemaName: '',
-        movieId: '',
-        seatNum: 1,
-        seat: '',
-        date: ''
+        order: {
+          showTimeId: 0,
+          cinemaName: '',
+          movieName: this.$route.query.movie,
+          seatNum: 1,
+          seat: '',
+        },
 
+        id: this.$route.params.id
       }
     },
     created () {
-      Movie.fetchCinema(this)
+      Movie.fetchWrap(this, '', this.id)
         .then(res => {
-          this.cinemaList = res.body.data.slice(1,6)
+          this.rawMovieList = res.body.data
+          this.rawMovieList.forEach(item => {
+            item.showTime = new Date(item.showTime).toISOString()
+            item.date = item.showTime.slice(0, 10)
+            item.time = item.showTime.slice(11, 16)
+          })
+          this.getCinemaList()
         })
         .catch(err => {
-          HTTPErrHandler(this, err)
+          this.notify('该电影暂无可用排期')
         })
     },
     methods: {
@@ -67,31 +113,92 @@
         this.$router.go(-1)
       },
 
-      disableYesterday (date) {
-        return date < new Date()
+      dateFilter (date) {
+        const fixedDate = new Date(date.getTime() + 8*60*60*1000) // +8h
+        return this.dateList.indexOf(fixedDate.toISOString().slice(0, 10)) === -1
       },
+
+      getCinemaList () {
+        const cinemaSet = new Set()
+
+        this.rawMovieList.forEach(item => {
+          cinemaSet.add(item.cinemaName)
+        })
+
+        this.cinemaList = [...cinemaSet]
+      },
+
+      onSelectCinema (val) {
+        this.rawMovieList
+          .filter(item => {
+            return item.cinemaName === val
+          })
+          .forEach(item => {
+            if (typeof this.dateTimeList[item.date] !== 'object') {
+              this.dateTimeList[item.date] = {
+                time: [],
+                date: item.date
+              }
+            }
+
+            this.dateTimeList[item.date]['time'].push({
+              id: item.id,
+              value: item.time
+            })
+          })
+
+        // unique date
+        this.dateList = [...new Set(Object.keys(this.dateTimeList))]
+
+        console.log(this.dateTimeList)
+        // reset
+        this.date = ''
+        this.order.showTimeId = 0
+      },
+
+      onSelectDate (val) {
+        this.timeList = this.dateTimeList[val].time
+
+        // reset
+        this.order.showTimeId = 0
+      },
+
+      onSelectTime (showTimeId) {
+        for (let item of this.rawMovieList) {
+          if (item.id === showTimeId) {
+            this.leaveNum = item.leaveNum
+          }
+        }
+      },
+
       submit () {
-        const form = {
-          showTime: this.date + ' ' + this.showTime + ':00',
-          seatNum: this.seatNum,
-          cinemaId: this.cinemaId,
-          cinemaName: this.cinemaName,
-          seat: this.seat,
-          movieId: this.$route.params.id,
-          movieName: this.$route.query.movie
+
+        if (this.order.cinemaName === '') {
+          this.notify('请选择电影院')
+          return
         }
 
-        if (this.cinemaId === '') {
-          return this.notify('请选择影院')
-        }
-        if (this.date === '' || this.showTime === '') {
-          return this.notify('请选择时间')
-        }
-        if (this.seatNum === 0) {
-          return this.notify('请选择数量')
+        if (this.order.date === '') {
+          this.notify('请选择观影日期')
+          return
         }
 
-        Order.create(this, form)
+        if (this.order.showTimeId === '') {
+          this.notify('请选择观影时间')
+          return
+        }
+
+        if (this.order.seatNum <= 0) {
+          this.notify('购买数量应大于零')
+          return
+        }
+
+        if (this.order.seatNum > this.leaveNum) {
+          this.notify('购买数量不能多于余票')
+          return
+        }
+
+        Order.create(this, this.order)
           .then(() => {
             this.notify('提交订单成功')
             this.$router.push({name: 'order'})

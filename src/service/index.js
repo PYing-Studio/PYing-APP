@@ -23,8 +23,11 @@ const CRUD = (ctx, operation, fakeUrl, form) => {
   if (['get', 'delete'].indexOf(operation) !== -1) {
     return ctx.$http[operation](url)
       .then(handleResponse)
-  } else if (['put', 'post'].indexOf(operation) !== -1) {
+  } else if (['post'].indexOf(operation) !== -1) {
     return ctx.$http[operation](url, form, {emulateJSON: true})
+      .then(handleResponse)
+  } else {
+    return ctx.$http[operation](url, form)
       .then(handleResponse)
   }
 }
@@ -43,7 +46,7 @@ const User = {
   },
 
   update (ctx, user) {
-    return CRUD(ctx, 'put', '/user')
+    return CRUD(ctx, 'put', '/user', user)
   },
 
   me (ctx) {
@@ -60,8 +63,8 @@ const Movie = {
     return CRUD(ctx, 'get', `/movie/${id}`)
   },
 
-  fetchCinema (ctx) {
-    return CRUD(ctx, 'get', '/cinema?city=广州&area=')
+  fetchWrap (ctx, cinema, movie) {
+    return CRUD(ctx, 'get', `/cinema/inTheater?cinema_id=${cinema}&movie_id=${movie}`)
   }
 }
 
