@@ -60,11 +60,11 @@
           .then(res => {
             this.order = res.body.data
 
-            const date = new Date(this.order.showTime)
+            const date = new Date(this.order.showTime).toISOString()
             const createDate = new Date(this.order.makeTime)
 
-            this.order.date = date.toLocaleString().substr(0, 10)
-            this.order.time = date.toLocaleString().substr(10)
+            this.order.date = date.substr(0, 10)
+            this.order.time = date.substr(11, 5)
             this.order.createdAt = createDate.toLocaleString()
           })
           .catch(err => {
