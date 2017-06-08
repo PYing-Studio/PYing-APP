@@ -1,4 +1,4 @@
-# y
+# PYing-APP [![Build Status](https://img.shields.io/circleci/project/PYing-Studio/PYing-APP/master.svg)](https://circleci.com/gh/PYing-Studio/PYing-APP)
 
 > Moive
 
