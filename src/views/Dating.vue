@@ -6,7 +6,7 @@
     <div class="recorderList">
       <mu-list>
         <mu-list-item v-for="item, index in list" :title="item.username"  :key="index">
-          <mu-avatar :src=item.logoSrc slot="leftAvatar"/>
+          <mu-avatar :src="item.image" slot="leftAvatar"/>
           <span slot="describe">
             <span style="color: rgba(0, 96, 100, .87)">{{item.movieName}} - </span>
             {{item.cinemaName}}

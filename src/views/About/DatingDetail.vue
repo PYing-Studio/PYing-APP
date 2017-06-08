@@ -21,15 +21,13 @@
         </mu-list-item>
         <mu-list-item>
           <mu-chip backgroundColor="teal300" class="chip">
-            <mu-avatar  backgroundColor="teal400" :size="32" icon="face"/>{{ order.username }}
+            <mu-avatar  backgroundColor="teal400" :size="32" :src="order.image"/>{{ order.username }}
           </mu-chip>
           <mu-chip class="chip" backgroundColor="teal100" v-for="user,index in order.friends" :key="index">
-            <mu-avatar backgroundColor="teal200" :size="32" icon="face"/>{{ user }}
+            <mu-avatar backgroundColor="teal200" :size="32" :src="user.image"/>{{ user.username }}
           </mu-chip>
         </mu-list-item>
       </mu-list>
-      <div class="payBtn">
-      </div>
     </div>
   </div>
 </template>
@@ -69,7 +67,8 @@
 
             this.order.date = date.slice(0, 10)
             this.order.time = date.substr(11, 5)
-            this.order.friends = this.order.friends.split("'#'")
+            if (this.order.friends.length > 0)
+              this.order.friends = this.order.friends.split("'#'")
           })
           .catch(err => {
             HTTPErrHandler(this, err)
