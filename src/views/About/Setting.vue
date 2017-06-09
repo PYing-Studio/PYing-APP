@@ -58,44 +58,28 @@
 </template>
 
 <script>
-  import light from '!raw-loader!muse-ui/dist/theme-default.css'
-  import dark from '!raw-loader!muse-ui/dist/theme-dark.css'
-  import carbon from '!raw-loader!muse-ui/dist/theme-carbon.css'
-  import teal from '!raw-loader!muse-ui/dist/theme-teal.css'
+
   import { User, HTTPErrHandler } from '../../service'
+  import bus from '../../service/bus'
 
   export default {
     data () {
       return {
-        theme: 'teal',
-        themes: {
-          light,
-          dark,
-          carbon,
-          teal
-        }
+        theme: 'teal'
       }
+    },
+    created () {
+      this.theme = localStorage['theme']
     },
     methods: {
       onBack() {
         this.$router.go(-1)
       },
-      changeTheme (theme) {
-        // color in chrome navigation bar
-        this.changeChromeBarColor(theme)
 
+      changeTheme (theme) {
         this.theme = theme
-        const styleEl = this.getThemeStyle()
-        styleEl.innerHTML = this.themes[theme] || ''
-      },
-      getThemeStyle () {
-        const themeId = 'muse-theme'
-        let styleEl = document.getElementById(themeId)
-        if (styleEl) return styleEl
-        styleEl = document.createElement('style')
-        styleEl.id = themeId
-        document.body.appendChild(styleEl)
-        return styleEl
+
+        bus.$emit('change-theme', theme)
       },
 
       logout () {
@@ -106,28 +90,8 @@
           .catch(err => {
             HTTPErrHandler(this, err)
           })
-      },
-
-      changeChromeBarColor (theme) {
-        let color = ''
-        switch (theme) {
-          case 'light':
-            color = '#7E57C2'
-            break
-          case 'dark':
-            color = '#1976D2'
-            break
-          case 'carbon':
-            color = '#474A4F'
-            break
-          case 'teal':
-            color = '#009688'
-            break
-          default:
-            color = '#009688'
-        }
-        document.head.querySelector('meta[name=theme-color]').content = color
       }
+
     }
   }
 </script>

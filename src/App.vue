@@ -16,7 +16,42 @@
 </template>
 
 <script>
+  import light from '!raw-loader!muse-ui/dist/theme-default.css'
+  import dark from '!raw-loader!muse-ui/dist/theme-dark.css'
+  import carbon from '!raw-loader!muse-ui/dist/theme-carbon.css'
+  import teal from '!raw-loader!muse-ui/dist/theme-teal.css'
   import bus from './service/bus'
+
+  function getThemeStyle () {
+    const themeId = 'muse-theme'
+    let styleEl = document.getElementById(themeId)
+    if (styleEl) return styleEl
+    styleEl = document.createElement('style')
+    styleEl.id = themeId
+    document.body.appendChild(styleEl)
+    return styleEl
+  }
+
+  function changeChromeBarColor (theme) {
+    let color = ''
+    switch (theme) {
+      case 'light':
+        color = '#7E57C2'
+        break
+      case 'dark':
+        color = '#1976D2'
+        break
+      case 'carbon':
+        color = '#474A4F'
+        break
+      case 'teal':
+        color = '#009688'
+        break
+      default:
+        color = '#009688'
+    }
+    document.head.querySelector('meta[name=theme-color]').content = color
+  }
 
   export default {
     name: 'app',
@@ -24,15 +59,20 @@
       return {
         bottomNav: '/',
         snackBar: false,
-        snackBarMsg: ''
+        snackBarMsg: '',
+        themes: {
+          light,
+          dark,
+          carbon,
+          teal
+        }
       }
     },
     created () {
-      bus.$on('change-title', this.onChangeTitle)
       bus.$on('notify', this.showSnackBar)
-    },
-    beforeDestroy() {
-      bus.$off('add-todo', this.onChangeTitle);
+      bus.$on('change-theme', this.changeTheme)
+
+      this.syncTheme()
     },
     methods: {
       handleChange(val) {
@@ -41,10 +81,6 @@
       },
       onBack() {
         this.$router.go(-1)
-      },
-
-      onChangeTitle (param) {
-        this.navTitle = param
       },
 
       hideSnackbar () {
@@ -59,7 +95,25 @@
 
         this.snackBar = true
         setTimeout(() => this.snackBar = false, 2000)
-      }
+      },
+
+      changeTheme (theme) {
+        // color in chrome navigation bar
+        changeChromeBarColor(theme)
+
+        const styleEl = getThemeStyle()
+        styleEl.innerHTML = this.themes[theme] || ''
+
+        // save current theme
+        localStorage['theme'] = theme
+      },
+
+      syncTheme () {
+        if (localStorage['theme']) {
+          this.changeTheme(localStorage['theme'])
+        }
+      },
+
     }
   }
 </script>
